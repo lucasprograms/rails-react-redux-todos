@@ -1,0 +1,49 @@
+@import './reset.scss';
+
+.todo-list {
+  li:first-child {
+    padding-top: 8px;
+  }
+
+  .todo--incomplete {
+    .todo__complete-button:hover:after {
+      content: '\2713';
+    }
+  }
+
+  .todo--complete {
+    .todo__complete-button:after {
+      content: '\2713';
+    }
+  }
+
+  .step--incomplete {
+    .step__complete-button:hover:after {
+      content: '\2713';
+      position: absolute;
+      bottom: -4px;
+      right: 0px;
+    }
+  }
+
+  .step--complete {
+    .step__complete-button:after {
+      content: '\2713';
+      position: absolute;
+      bottom: -4px;
+      right: 0px;
+    }
+  }
+
+  .rotate-180 {
+    transform: rotate(180deg);
+  }
+
+  .toggle-detail-icon {
+    transition: transform .25s ease-in-out;
+  }
+
+  .todo-detail-view {
+    transition: max-height .25s ease-in-out;
+  }
+}
