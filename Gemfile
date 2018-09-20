@@ -68,3 +68,5 @@ gem "binding_of_caller", "~> 0.8.0"
 gem "annotate", "~> 2.7"
 
 gem "jquery-rails", "~> 4.3"
+
+gem "foreman", "~> 0.64.0"
