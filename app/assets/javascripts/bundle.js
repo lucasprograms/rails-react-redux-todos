@@ -119,7 +119,7 @@ var clearErrors = function clearErrors() {
 /*!******************************************!*\
   !*** ./frontend/actions/step_actions.js ***!
   \******************************************/
-/*! exports provided: RECEIVE_STEPS, RECEIVE_STEP, REMOVE_STEP, TOGGLE_COMPLETE_STEP, receiveSteps, receiveStep, removeStep, toggleCompleteStep */
+/*! exports provided: RECEIVE_STEPS, RECEIVE_STEP, REMOVE_STEP, TOGGLE_COMPLETE_STEP, receiveSteps, receiveStep, removeStep, toggleCompleteStep, fetchSteps */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -132,6 +132,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveStep", function() { return receiveStep; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeStep", function() { return removeStep; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "toggleCompleteStep", function() { return toggleCompleteStep; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchSteps", function() { return fetchSteps; });
+/* harmony import */ var _util_step_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../util/step_api_util */ "./util/step_api_util.js");
+
 var RECEIVE_STEPS = 'RECEIVE_STEPS';
 var RECEIVE_STEP = 'RECEIVE_STEP';
 var REMOVE_STEP = 'REMOVE_STEP';
@@ -158,6 +161,13 @@ var toggleCompleteStep = function toggleCompleteStep(step) {
   return {
     type: TOGGLE_COMPLETE_STEP,
     step: step
+  };
+};
+var fetchSteps = function fetchSteps(todoId) {
+  return function (dispatch) {
+    return _util_step_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchSteps"](todoId).then(function (steps) {
+      return dispatch(receiveSteps(steps));
+    });
   };
 };
 
@@ -503,18 +513,17 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+var mapStateToProps = function mapStateToProps(state, ownprops) {
+  return {
+    steps: Object(_reducers_selectors__WEBPACK_IMPORTED_MODULE_2__["stepsByTodoId"])(state, ownprops.todoId)
+  };
+};
+
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     receiveStep: function receiveStep(step) {
       return dispatch(Object(_actions_step_actions__WEBPACK_IMPORTED_MODULE_1__["receiveStep"])(step));
     }
-  };
-};
-
-var mapStateToProps = function mapStateToProps(state, ownprops) {
-  return {
-    steps: Object(_reducers_selectors__WEBPACK_IMPORTED_MODULE_2__["stepsByTodoId"])(state, ownprops.todoId),
-    todoId: ownprops.todoId
   };
 };
 
@@ -577,7 +586,7 @@ function (_Component) {
         style: {
           textDecoration: this.props.step.done ? 'line-through' : ''
         }
-      }, this.props.step.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      }, this.props.step.body), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "btn btn-sm btn-outline-info mr-1 step__complete-button position-relative",
         onClick: function onClick() {
           return _this.props.toggleCompleteStep(_this.props.step);
@@ -698,14 +707,15 @@ var TodoDetailView = function TodoDetailView(_ref) {
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "todo-detail-view p-1",
     style: {
-      maxHeight: show ? '300px' : '0px',
+      maxHeight: show ? '1000px' : '0px',
       height: show ? 'auto' : '0px',
       overflow: 'hidden'
     }
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
     className: "card-text"
   }, todo.body), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_step_list_step_list_container__WEBPACK_IMPORTED_MODULE_1__["default"], {
-    todoId: todo.id
+    todoId: todo.id,
+    todo: todo
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     className: "btn btn-outline-info btn-sm mr-3 todo__complete-button",
     onClick: function onClick() {
@@ -784,7 +794,11 @@ function (_Component) {
   _createClass(TodoList, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      this.props.fetchTodos();
+      var _this = this;
+
+      this.props.fetchTodos().then(function () {
+        return _this.props.fetchSteps();
+      });
     }
   }, {
     key: "render",
@@ -838,6 +852,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _todo_list__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./todo_list */ "./frontend/components/todos/todo_list.jsx");
 /* harmony import */ var _reducers_selectors__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../reducers/selectors */ "./frontend/reducers/selectors.js");
 /* harmony import */ var _actions_todo_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/todo_actions */ "./frontend/actions/todo_actions.js");
+/* harmony import */ var _actions_step_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/step_actions */ "./frontend/actions/step_actions.js");
+
 
 
 
@@ -854,6 +870,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     fetchTodos: function fetchTodos() {
       return dispatch(Object(_actions_todo_actions__WEBPACK_IMPORTED_MODULE_3__["fetchTodos"])());
+    },
+    fetchSteps: function fetchSteps() {
+      return dispatch(Object(_actions_step_actions__WEBPACK_IMPORTED_MODULE_4__["fetchSteps"])());
     },
     createTodo: function createTodo(todo) {
       return dispatch(Object(_actions_todo_actions__WEBPACK_IMPORTED_MODULE_3__["createTodo"])(todo));
@@ -1251,6 +1270,12 @@ var stepsReducer = function stepsReducer() {
   Object.freeze(state);
 
   switch (action.type) {
+    case _actions_step_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_STEPS"]:
+      return _objectSpread({}, Object.keys(action.steps).reduce(function (accum, key) {
+        accum[action.steps[key]['id']] = action.steps[key];
+        return accum;
+      }, {}), state);
+
     case _actions_step_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_STEP"]:
       return _objectSpread(_defineProperty({}, action.step.id, action.step), state);
 
@@ -1429,8 +1454,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var store = Object(_store_store__WEBPACK_IMPORTED_MODULE_3__["default"])(); // window.store = store
-
+var store = Object(_store_store__WEBPACK_IMPORTED_MODULE_3__["default"])();
+window.store = store;
 document.addEventListener('DOMContentLoaded', function () {
   react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_root__WEBPACK_IMPORTED_MODULE_4__["default"], {
     store: store
@@ -29803,6 +29828,22 @@ module.exports = function(module) {
 	return module;
 };
 
+
+/***/ }),
+
+/***/ "./util/step_api_util.js":
+/*!*******************************!*\
+  !*** ./util/step_api_util.js ***!
+  \*******************************/
+/*! exports provided: fetchSteps */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchSteps", function() { return fetchSteps; });
+var fetchSteps = function fetchSteps() {
+  return $.get("/api/steps");
+};
 
 /***/ }),
 

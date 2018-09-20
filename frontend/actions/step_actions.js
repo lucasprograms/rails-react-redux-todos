@@ -1,3 +1,5 @@
+import * as APIUtil from '../../util/step_api_util'
+
 export const RECEIVE_STEPS = 'RECEIVE_STEPS'
 export const RECEIVE_STEP = 'RECEIVE_STEP'
 export const REMOVE_STEP = 'REMOVE_STEP'
@@ -22,3 +24,7 @@ export const toggleCompleteStep = (step) => ({
   type: TOGGLE_COMPLETE_STEP,
   step
 })
+
+export const fetchSteps = todoId => dispatch =>
+  APIUtil.fetchSteps(todoId).then(steps => dispatch(receiveSteps(steps)))
+

@@ -10,13 +10,13 @@ const TodoDetailView = ({ todo, show, updateTodo, destroyTodo }) => (
   <div
     className="todo-detail-view p-1"
     style={{
-      maxHeight: show ? '300px' : '0px',
+      maxHeight: show ? '1000px' : '0px',
       height: show ? 'auto' : '0px',
       overflow: 'hidden'
     }}
   >
     <p className="card-text">{todo.body}</p>
-    <StepListItemContainer todoId={todo.id}/>
+    <StepListItemContainer todoId={todo.id} todo={todo}/>
     <a
       className="btn btn-outline-info btn-sm mr-3 todo__complete-button"
       onClick={() => updateTodo(toggleTodoDone(todo))}

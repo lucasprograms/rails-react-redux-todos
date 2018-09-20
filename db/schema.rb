@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_18_182503) do
+ActiveRecord::Schema.define(version: 2018_09_20_050023) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "steps", force: :cascade do |t|
+    t.string "body", null: false
+    t.boolean "done", default: false, null: false
+    t.integer "todo_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["todo_id"], name: "index_steps_on_todo_id"
+  end
 
   create_table "todos", force: :cascade do |t|
     t.string "title", null: false

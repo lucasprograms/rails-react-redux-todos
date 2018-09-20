@@ -4,7 +4,7 @@ import TodoListForm from './todo_list_form'
 
 class TodoList extends Component {
   componentDidMount () {
-    this.props.fetchTodos()
+    this.props.fetchTodos().then(() => this.props.fetchSteps())
   }
 
   render () {

@@ -4,7 +4,7 @@ export default class StepListItem extends Component {
   render() {
     return (
       <li className={`col-12 ${this.props.step.done ? 'step--complete' : 'step--incomplete'}`}>
-        <span className="mr-1" style={{ textDecoration: this.props.step.done ? 'line-through' : '' }}>{this.props.step.title}</span>
+        <span className="mr-1" style={{ textDecoration: this.props.step.done ? 'line-through' : '' }}>{this.props.step.body}</span>
         <button
           className="btn btn-sm btn-outline-info mr-1 step__complete-button position-relative"
           onClick={() => this.props.toggleCompleteStep(this.props.step)}
