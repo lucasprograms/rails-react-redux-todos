@@ -28,10 +28,9 @@ export default class StepForm extends Component {
     return (
       <form>
         <div className="form-group">
-          <label htmlFor="#step-title">Title:</label>
-          <input type="text" className="form-control" onChange={(e) => this.updateStepTitle(e)} value={this.state.titleText}/>
+          <input placeholder="new step" type="text" className="form-control mt-1" onChange={(e) => this.updateStepTitle(e)} value={this.state.titleText}/>
         </div>
-        <button type="submit" onClick={(e) => this.handleSubmit(e, this.props.receiveStep.bind(this))}></button>
+        <button className="d-none" type="submit" onClick={(e) => this.handleSubmit(e, this.props.receiveStep.bind(this))}></button>
       </form>
     )
   }

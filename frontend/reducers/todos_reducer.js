@@ -1,44 +1,13 @@
 import { RECEIVE_TODOS, RECEIVE_TODO, REMOVE_TODO, TOGGLE_COMPLETE_TODO } from '../actions/todo_actions'
 import merge from 'lodash/merge'
 
-const initialState = {
-  1: {
-    id: 1,
-    title: 'wash car',
-    body: 'with soap',
-    done: false,
-    index: 0
-  },
-  2: {
-    id: 2,
-    title: 'wash dog',
-    body: 'with shampoo',
-    done: true,
-    index: 1
-  },
-  3: {
-    id: 3,
-    title: 'eat car',
-    body: 'with soap',
-    done: false,
-    index: 2
-  },
-  4: {
-    id: 4,
-    title: 'drink dog',
-    body: 'with shampoo',
-    done: true,
-    index: 3
-  },
-};
-
-const todosReducer = (state = initialState, action) => {
+const todosReducer = (state = [], action) => {
   Object.freeze(state)
 
   switch (action.type) {
     case RECEIVE_TODOS:
-      return Object.keys(action.todos[0]).reduce(
-        (accum, key) => { accum[key] = action.todos[0][key]; return accum }, {}
+      return Object.keys(action.todos).reduce(
+        (accum, key) => { accum[action.todos[key]['id']] = action.todos[key]; return accum }, {}
       )
     case RECEIVE_TODO:
       return ({

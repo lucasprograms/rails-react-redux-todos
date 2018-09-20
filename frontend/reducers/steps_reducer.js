@@ -1,34 +1,7 @@
 import { RECEIVE_STEP, REMOVE_STEP, TOGGLE_COMPLETE_STEP } from '../actions/step_actions'
 import merge from 'lodash/merge'
 
-const initialState = {
-  1: {
-    id: 1,
-    title: 'walk to store',
-    done: false,
-    todo_id: 1
-  },
-  2: {
-    id: 2,
-    title: 'buy soap',
-    done: false,
-    todo_id: 1
-  },
-  3: {
-    id: 3,
-    title: 'crush the patriarchy',
-    done: false,
-    todo_id: 3
-  },
-  4: {
-    id: 4,
-    title: 'destroy soap',
-    done: false,
-    todo_id: 4
-  }
-}
-
-const stepsReducer = (state = initialState, action) => {
+const stepsReducer = (state = [], action) => {
   Object.freeze(state)
 
   switch (action.type) {

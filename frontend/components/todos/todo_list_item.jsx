@@ -21,7 +21,7 @@ class TodoListItem extends Component {
 
     return (
       <div
-        className={`card col-8 mt-2 mb-2 ${todo.done ? 'todo--complete' : 'todo--incomplete'}`}
+        className={`card col-12 col-lg-8 mt-2 mb-2 ${todo.done ? 'todo--complete' : 'todo--incomplete'}`}
         style={{ width: '18rem' }}
       >
         <div className="card-body" >

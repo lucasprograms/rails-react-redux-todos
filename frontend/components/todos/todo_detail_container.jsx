@@ -1,10 +1,10 @@
 import { connect } from 'react-redux'
 import TodoDetailView from './todo_detail_view'
-import { toggleCompleteTodo, removeTodo } from '../../actions/todo_actions'
+import { updateTodo, destroyTodo } from '../../actions/todo_actions'
 
 const mapDispatchToProps = (dispatch) => ({
-  toggleCompleteTodo: todo => dispatch(toggleCompleteTodo(todo)),
-  removeTodo: todo => dispatch(removeTodo(todo))
+  updateTodo: todo => dispatch(updateTodo(todo)),
+  destroyTodo: todo => dispatch(destroyTodo(todo))
 })
 
 export default connect(
