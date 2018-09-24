@@ -1,11 +1,6 @@
 import React from 'react'
 import StepListItemContainer from '../step_list/step_list_container'
 
-const toggleTodoDone = (todo) => {
-  todo.done = !todo.done
-  return todo
-}
-
 const TodoDetailView = ({ todo, show, updateTodo, destroyTodo }) => (
   <div
     className="todo-detail-view p-1"
@@ -19,7 +14,7 @@ const TodoDetailView = ({ todo, show, updateTodo, destroyTodo }) => (
     <StepListItemContainer todoId={todo.id} todo={todo}/>
     <a
       className="btn btn-outline-info btn-sm mr-3 todo__complete-button"
-      onClick={() => updateTodo(toggleTodoDone(todo))}
+      onClick={() => updateTodo({ ...todo, done: !todo.done })}
       href="#"
       style={{
         fontSize: '14px',

@@ -11,8 +11,8 @@ const todosReducer = (state = [], action) => {
       )
     case RECEIVE_TODO:
       return ({
-        [action.todo.id]: action.todo,
-        ...state
+        ...state,
+        [action.todo.id]: action.todo
       })
     case REMOVE_TODO:
       const { [`${action.todo.id}`]: _, ...newTodos } = state
