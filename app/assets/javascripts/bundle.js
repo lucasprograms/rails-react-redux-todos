@@ -119,7 +119,7 @@ var clearErrors = function clearErrors() {
 /*!******************************************!*\
   !*** ./frontend/actions/step_actions.js ***!
   \******************************************/
-/*! exports provided: RECEIVE_STEPS, RECEIVE_STEP, REMOVE_STEP, TOGGLE_COMPLETE_STEP, receiveSteps, receiveStep, removeStep, toggleCompleteStep, fetchSteps */
+/*! exports provided: RECEIVE_STEPS, RECEIVE_STEP, REMOVE_STEP, TOGGLE_COMPLETE_STEP, receiveSteps, receiveStep, removeStep, toggleCompleteStep, fetchSteps, createStep */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -133,7 +133,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeStep", function() { return removeStep; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "toggleCompleteStep", function() { return toggleCompleteStep; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchSteps", function() { return fetchSteps; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createStep", function() { return createStep; });
 /* harmony import */ var _util_step_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../util/step_api_util */ "./util/step_api_util.js");
+/* harmony import */ var _error_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./error_actions */ "./frontend/actions/error_actions.js");
+
 
 var RECEIVE_STEPS = 'RECEIVE_STEPS';
 var RECEIVE_STEP = 'RECEIVE_STEP';
@@ -167,6 +170,16 @@ var fetchSteps = function fetchSteps(todoId) {
   return function (dispatch) {
     return _util_step_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchSteps"](todoId).then(function (steps) {
       return dispatch(receiveSteps(steps));
+    });
+  };
+};
+var createStep = function createStep(step) {
+  return function (dispatch) {
+    return _util_step_api_util__WEBPACK_IMPORTED_MODULE_0__["createStep"](step).then(function (step) {
+      dispatch(receiveStep(step));
+      dispatch(Object(_error_actions__WEBPACK_IMPORTED_MODULE_1__["clearErrors"])());
+    }, function (err) {
+      return dispatch(Object(_error_actions__WEBPACK_IMPORTED_MODULE_1__["receiveErrors"])(err.responseJSON));
     });
   };
 };
@@ -371,16 +384,14 @@ function (_Component) {
     }
   }, {
     key: "handleSubmit",
-    value: function handleSubmit(e, receiveStep) {
-      e.preventDefault();
-
+    value: function handleSubmit(createStep) {
       var uniqueId = function uniqueId() {
         return new Date().getTime();
       };
 
-      receiveStep({
+      createStep({
         id: uniqueId(),
-        title: this.state.titleText,
+        body: this.state.titleText,
         done: false,
         todo_id: this.props.todoId
       });
@@ -407,7 +418,9 @@ function (_Component) {
         className: "d-none",
         type: "submit",
         onClick: function onClick(e) {
-          return _this2.handleSubmit(e, _this2.props.receiveStep.bind(_this2));
+          e.preventDefault();
+
+          _this2.handleSubmit(_this2.props.createStep.bind(_this2));
         }
       }));
     }
@@ -482,7 +495,7 @@ function (_Component) {
           step: step
         });
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_step_form__WEBPACK_IMPORTED_MODULE_2__["default"], {
-        receiveStep: this.props.receiveStep,
+        createStep: this.props.createStep,
         todoId: this.props.todoId
       }));
     }
@@ -523,6 +536,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     receiveStep: function receiveStep(step) {
       return dispatch(Object(_actions_step_actions__WEBPACK_IMPORTED_MODULE_1__["receiveStep"])(step));
+    },
+    createStep: function createStep(step) {
+      return dispatch(Object(_actions_step_actions__WEBPACK_IMPORTED_MODULE_1__["createStep"])(step));
     }
   };
 };
@@ -29835,14 +29851,43 @@ module.exports = function(module) {
 /*!*******************************!*\
   !*** ./util/step_api_util.js ***!
   \*******************************/
-/*! exports provided: fetchSteps */
+/*! exports provided: fetchSteps, createStep, updateStep, destroyStep */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchSteps", function() { return fetchSteps; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createStep", function() { return createStep; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateStep", function() { return updateStep; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "destroyStep", function() { return destroyStep; });
 var fetchSteps = function fetchSteps() {
   return $.get("/api/steps");
+};
+var createStep = function createStep(step) {
+  return $.ajax({
+    url: "api/todos/".concat(step.todo_id, "/steps"),
+    method: 'POST',
+    data: {
+      step: step
+    }
+  });
+};
+
+var createAjax = function createAjax(method, step) {
+  return $.ajax({
+    url: "api/steps/".concat(id),
+    method: method,
+    data: {
+      step: step
+    }
+  });
+};
+
+var updateStep = function updateStep(step) {
+  return createAjax('PATCH', step);
+};
+var destroyStep = function destroyStep(step) {
+  return createAjax('DELETE', step);
 };
 
 /***/ }),

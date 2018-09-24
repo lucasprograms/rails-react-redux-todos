@@ -10,7 +10,7 @@ export default class StepList extends Component {
         <li className="font-weight-bold col-12">Steps:</li>
         {this.props.steps.map(step => <StepListItemContainer key={step.id} step={step} />)}
       </ul>
-      <StepForm receiveStep={this.props.receiveStep} todoId={this.props.todoId} />
+      <StepForm createStep={this.props.createStep} todoId={this.props.todoId} />
       </div>
     )
   }
