@@ -4,7 +4,6 @@ import { clearErrors, receiveErrors } from './error_actions'
 export const RECEIVE_STEPS = 'RECEIVE_STEPS'
 export const RECEIVE_STEP = 'RECEIVE_STEP'
 export const REMOVE_STEP = 'REMOVE_STEP'
-export const TOGGLE_COMPLETE_STEP = 'TOGGLE_COMPLETE_STEP'
 
 export const receiveSteps = (steps) => ({
   type: RECEIVE_STEPS,
@@ -21,11 +20,6 @@ export const removeStep = (step) => ({
   step
 })
 
-export const toggleCompleteStep = (step) => ({
-  type: TOGGLE_COMPLETE_STEP,
-  step
-})
-
 export const fetchSteps = todoId => dispatch =>
   APIUtil.fetchSteps(todoId).then(steps => dispatch(receiveSteps(steps)))
 
@@ -39,3 +33,16 @@ export const createStep = (step) => dispatch => {
     err => dispatch(receiveErrors(err.responseJSON))
   )
 }
+
+export const updateStep = step => dispatch =>
+  APIUtil.updateStep(step)
+    .then(
+      step => {
+        dispatch(receiveStep(step))
+      },
+      err => dispatch(receiveErrors(err.responseJSON))
+    )
+
+export const destroyStep = step => dispatch =>
+  APIUtil.destroyStep(step)
+    .then(step => dispatch(removeStep(step)))

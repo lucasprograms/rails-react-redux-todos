@@ -15,9 +15,26 @@ class Api::StepsController < ApplicationController
     end
   end
 
+  def update
+    @step = Step.find(params[:id])
+
+    if @step.update_attributes(step_params)
+      render json: @step
+    else
+      render json: @step.errors.full_messages, status: :unproccesable_entity
+    end
+  end
+
+  def destroy
+    @step = Step.find(params[:id])
+    @step.destroy
+    render json: @step
+  end
+
+
   private
 
   def step_params
-    params.require(:step).permit(:body)
+    params.require(:step).permit(:body, :done)
   end
 end

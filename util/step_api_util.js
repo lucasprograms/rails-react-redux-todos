@@ -10,7 +10,7 @@ export const createStep = (step) =>
 
 const createAjax = (method, step) =>
   $.ajax({
-    url: `api/steps/${id}`,
+    url: `api/steps/${step.id}`,
     method,
     data: { step }
   })
