@@ -1,5 +1,5 @@
 import React from 'react'
-import StepListItemContainer from '../step_list/step_list_container'
+import StepListItemContainer from 'Components/step_list/step_list_container'
 
 const TodoDetailView = ({ todo, show, updateTodo, destroyTodo }) => (
   <div

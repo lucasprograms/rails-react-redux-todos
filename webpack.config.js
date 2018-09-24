@@ -35,6 +35,14 @@ module.exports = {
   },
   devtool: 'source-map',
   resolve: {
-    extensions: ['.js', '.jsx', '*']
+    extensions: ['.js', '.jsx', '*'],
+    alias: {
+      Util: path.resolve(__dirname, 'util'),
+      Actions: path.resolve(__dirname, 'frontend', 'actions'),
+      Components: path.resolve(__dirname, 'frontend', 'components'),
+      Reducers: path.resolve(__dirname, 'frontend', 'reducers'),
+      Store: path.resolve(__dirname, 'frontend', 'store'),
+      Middleware: path.resolve(__dirname, 'frontend', 'middleware')
+    }
   }
 };

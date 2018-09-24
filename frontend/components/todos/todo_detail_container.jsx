@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import TodoDetailView from './todo_detail_view'
-import { updateTodo, destroyTodo } from '../../actions/todo_actions'
+import { updateTodo, destroyTodo } from 'Actions/todo_actions'
 
 const mapDispatchToProps = (dispatch) => ({
   updateTodo: todo => dispatch(updateTodo(todo)),

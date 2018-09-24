@@ -1,4 +1,4 @@
-import { RECEIVE_ERRORS, CLEAR_ERRORS } from '../actions/error_actions'
+import { RECEIVE_ERRORS, CLEAR_ERRORS } from 'Actions/error_actions'
 
 const errorReducer = (state = [], action) => {
   switch (action.type) {

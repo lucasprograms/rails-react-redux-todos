@@ -1,4 +1,4 @@
-import * as APIUtil from '../../util/step_api_util'
+import * as APIUtil from 'Util/step_api_util'
 import { clearErrors, receiveErrors } from './error_actions'
 
 export const RECEIVE_STEPS = 'RECEIVE_STEPS'

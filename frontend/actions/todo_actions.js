@@ -1,4 +1,4 @@
-import * as APIUtil from '../../util/todo_api_util'
+import * as APIUtil from 'Util/todo_api_util'
 import { clearErrors, receiveErrors } from './error_actions'
 
 export const RECEIVE_TODOS = 'RECEIVE_TODOS'

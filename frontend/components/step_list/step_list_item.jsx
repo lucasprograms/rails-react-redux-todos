@@ -1,11 +1,5 @@
 import React, { Component } from 'react'
 
-const toggleStepDone = (step) => {
-  const apple = { ...step, done: true }
-  debugger
-  return apple
-}
-
 const StepListItem = ({ updateStep, step, destroyStep }) => 
   <li className={`col-12 ${step.done ? 'step--complete' : 'step--incomplete'}`}>
     <span className="mr-1" style={{ textDecoration: step.done ? 'line-through' : '' }}>{step.body}</span>
