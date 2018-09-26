@@ -1,16 +1,17 @@
 class Api::TodosController < ApplicationController
-  # before_action :require_logged_in
+  before_action :redirect_if_not_logged_in
 
   def show
-    render json: Todo.find(params[:id]), include: :tags
+    render json: current_user.todos.find(params[:id]), include: :tags
   end
 
   def index
-    render json: Todo.all, include: :tags
+    render json: current_user.todos, include: :tags
   end
 
   def create
-    @todo = Todo.new(todo_params)
+    @todo = current_user.todos.new(todo_params)
+
     if @todo.save
       render json: @todo, include: :tags
     else
@@ -19,7 +20,7 @@ class Api::TodosController < ApplicationController
   end
 
   def update
-    @todo = Todo.find(params[:id])
+    @todo = current_user.todos.find(params[:id])
 
     if @todo.update_attributes(todo_params)
       render json: @todo, include: :tags
@@ -29,16 +30,12 @@ class Api::TodosController < ApplicationController
   end
 
   def destroy
-    @todo = Todo.find(params[:id])
+    @todo = current_user.todos.find(params[:id])
     @todo.destroy
     render json: @todo
   end
 
   private
-
-  def require_logged_in
-    redirect_to new_session_url unless current_user
-  end
 
   def todo_params
     params.require(:todo).permit(:title, :body, :done, tag_names: [])

@@ -1,11 +1,19 @@
-5.times do
-  Todo.create(
-    body: Faker::Lorem.sentence,
-    title: Faker::Lorem.sentence
+3.times do
+  User.create(
+    username: Faker::LordOfTheRings.character.split(' ').map(&:capitalize).join(''),
+    password: 'catcat'
   )
 end
 
 10.times do
+  Todo.create(
+    body: Faker::Lorem.sentence,
+    title: Faker::Lorem.sentence,
+    user_id: rand(3) + 1
+  )
+end
+
+15.times do
   Step.create(
     body:Faker::Lorem.sentence,
     todo_id: Faker::Number.between(0, 9)
@@ -30,7 +38,7 @@ def createTaggingForeignKeys
   [rand(5) + 1, rand(10) + 1]
 end
 
-10.times do
+15.times do
   tagging = createTaggingForeignKeys
   while taggings.include? tagging do
     tagging = createTaggingForeignKeys

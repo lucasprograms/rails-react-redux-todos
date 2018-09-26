@@ -1,0 +1,25 @@
+<form method="post" action="/<%= action %>">
+  <input
+    type="hidden"
+    name="authenticity_token"
+    value="<%= form_authenticity_token %>">
+  <label for="username-input">Username</label>
+  <div class="form-group">
+    <input type="text" class="form-control" id="username-input"
+          placeholder="<%= Faker::LordOfTheRings.character.split(' ').map(&:capitalize).join('') %>"
+          value="<%= @user.username %>" name="user[username]"
+    />
+  </div>
+  <div class="form-group">
+    <label for="password-input">Password</label>
+    <input type="password" class="form-control" is="password-input"
+          value="<%= @user.password %>" name="user[password]"
+    />
+  </div>
+  <div class="d-flex">
+    <button class="btn btn-primary mr-2"><%= action === 'session' ? 'Log In' : 'Sign Up' %></button>
+    <a class="btn btn-outline-primary" href="<%= action === 'session' ? new_user_url : new_session_url %>">
+      <%= action === 'session' ? 'Sign up' : 'Log in' %> Instead
+    </a>
+  </div>
+</form>
