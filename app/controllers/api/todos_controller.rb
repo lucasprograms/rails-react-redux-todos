@@ -1,4 +1,6 @@
 class Api::TodosController < ApplicationController
+  # before_action :require_logged_in
+
   def show
     render json: Todo.find(params[:id]), include: :tags
   end
@@ -33,6 +35,10 @@ class Api::TodosController < ApplicationController
   end
 
   private
+
+  def require_logged_in
+    redirect_to new_session_url unless current_user
+  end
 
   def todo_params
     params.require(:todo).permit(:title, :body, :done, tag_names: [])

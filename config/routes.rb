@@ -8,4 +8,7 @@ Rails.application.routes.draw do
 
     resources :steps, only: [:update, :destroy, :index]
   end
+
+  resources :users, only: [:new, :create]
+  resource :session, only: [:new, :create]
 end

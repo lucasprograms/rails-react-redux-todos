@@ -702,7 +702,7 @@ var TodoDetailView = function TodoDetailView(_ref) {
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
     className: "card-text"
   }, todo.body), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_todo_tags_view__WEBPACK_IMPORTED_MODULE_2__["default"], {
-    tags: todo.tags
+    tags: todo.tags || []
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Components_step_list_step_list_container__WEBPACK_IMPORTED_MODULE_1__["default"], {
     todoId: todo.id,
     todo: todo
