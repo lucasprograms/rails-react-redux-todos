@@ -484,11 +484,11 @@ function (_Component) {
     key: "render",
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "container mb-2"
+        className: "container mb-2 mt-2"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
         className: "row"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-        className: "font-weight-bold col-12"
+        className: "font-weight-bold col-12 pl-0"
       }, "Steps:"), this.props.steps.map(function (step) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_step_list_item_container__WEBPACK_IMPORTED_MODULE_1__["default"], {
           key: step.id,
@@ -678,9 +678,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var Components_step_list_step_list_container__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! Components/step_list/step_list_container */ "./frontend/components/step_list/step_list_container.jsx");
+/* harmony import */ var _todo_tags_view__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./todo_tags_view */ "./frontend/components/todos/todo_tags_view.jsx");
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -699,7 +701,9 @@ var TodoDetailView = function TodoDetailView(_ref) {
     }
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
     className: "card-text"
-  }, todo.body), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Components_step_list_step_list_container__WEBPACK_IMPORTED_MODULE_1__["default"], {
+  }, todo.body), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_todo_tags_view__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    tags: todo.tags
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Components_step_list_step_list_container__WEBPACK_IMPORTED_MODULE_1__["default"], {
     todoId: todo.id,
     todo: todo
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
@@ -1113,6 +1117,35 @@ function (_Component) {
 
 /***/ }),
 
+/***/ "./frontend/components/todos/todo_tags_view.jsx":
+/*!******************************************************!*\
+  !*** ./frontend/components/todos/todo_tags_view.jsx ***!
+  \******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+var TodoTagsView = function TodoTagsView(_ref) {
+  var tags = _ref.tags;
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+    className: "col-12 pl-0 font-weight-bold"
+  }, "Tags:"), tags.map(function (tag, idx) {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+      className: "badge badge-light",
+      key: idx
+    }, tag.name);
+  }));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (TodoTagsView);
+
+/***/ }),
+
 /***/ "./frontend/middleware/thunk.js":
 /*!**************************************!*\
   !*** ./frontend/middleware/thunk.js ***!
@@ -1488,7 +1521,7 @@ exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader
 
 
 // module
-exports.push([module.i, "/* http://meyerweb.com/eric/tools/css/reset/ \n   v2.0 | 20110126\n   License: none (public domain)\n*/\nhtml, body, div, span, applet, object, iframe,\nh1, h2, h3, h4, h5, h6, p, blockquote, pre,\na, abbr, acronym, address, big, cite, code,\ndel, dfn, em, img, ins, kbd, q, s, samp,\nsmall, strike, strong, sub, sup, tt, var,\nb, u, i, center,\ndl, dt, dd, ol, ul, li,\nfieldset, form, label, legend,\ntable, caption, tbody, tfoot, thead, tr, th, td,\narticle, aside, canvas, details, embed,\nfigure, figcaption, footer, header, hgroup,\nmenu, nav, output, ruby, section, summary,\ntime, mark, audio, video {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  font-size: 100%;\n  font: inherit;\n  vertical-align: baseline; }\n\n/* HTML5 display-role reset for older browsers */\narticle, aside, details, figcaption, figure,\nfooter, header, hgroup, menu, nav, section {\n  display: block; }\n\nbody {\n  line-height: 1; }\n\nol, ul {\n  list-style: none; }\n\nblockquote, q {\n  quotes: none; }\n\nblockquote:before, blockquote:after,\nq:before, q:after {\n  content: '';\n  content: none; }\n\ntable {\n  border-collapse: collapse;\n  border-spacing: 0; }\n\n.todo-list li:first-child {\n  padding-top: 8px; }\n\n.todo-list .todo--incomplete .todo__complete-button:hover:after {\n  content: '\\2713'; }\n\n.todo-list .todo--complete .todo__complete-button:after {\n  content: '\\2713'; }\n\n.todo-list .step--incomplete .step__complete-button:hover:after {\n  content: '\\2713';\n  position: absolute;\n  bottom: -4px;\n  right: 0px; }\n\n.todo-list .step--complete .step__complete-button:after {\n  content: '\\2713';\n  position: absolute;\n  bottom: -4px;\n  right: 0px; }\n\n.todo-list .rotate-180 {\n  transform: rotate(180deg); }\n\n.todo-list .toggle-detail-icon {\n  transition: transform .25s ease-in-out; }\n\n.todo-list .todo-detail-view {\n  transition: max-height .25s ease-in-out; }\n", ""]);
+exports.push([module.i, "/* http://meyerweb.com/eric/tools/css/reset/ \n   v2.0 | 20110126\n   License: none (public domain)\n*/\nhtml, body, div, span, applet, object, iframe,\nh1, h2, h3, h4, h5, h6, p, blockquote, pre,\na, abbr, acronym, address, big, cite, code,\ndel, dfn, em, img, ins, kbd, q, s, samp,\nsmall, strike, strong, sub, sup, tt, var,\nb, u, i, center,\ndl, dt, dd, ol, ul, li,\nfieldset, form, label, legend,\ntable, caption, tbody, tfoot, thead, tr, th, td,\narticle, aside, canvas, details, embed,\nfigure, figcaption, footer, header, hgroup,\nmenu, nav, output, ruby, section, summary,\ntime, mark, audio, video {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  font-size: 100%;\n  font: inherit;\n  vertical-align: baseline; }\n\n/* HTML5 display-role reset for older browsers */\narticle, aside, details, figcaption, figure,\nfooter, header, hgroup, menu, nav, section {\n  display: block; }\n\nbody {\n  line-height: 1; }\n\nol, ul {\n  list-style: none; }\n\nblockquote, q {\n  quotes: none; }\n\nblockquote:before, blockquote:after,\nq:before, q:after {\n  content: '';\n  content: none; }\n\ntable {\n  border-collapse: collapse;\n  border-spacing: 0; }\n\n.todo-list .todo--incomplete .todo__complete-button:hover:after {\n  content: '\\2713'; }\n\n.todo-list .todo--complete .todo__complete-button:after {\n  content: '\\2713'; }\n\n.todo-list .step--incomplete .step__complete-button:hover:after {\n  content: '\\2713';\n  position: absolute;\n  bottom: -4px;\n  right: 0px; }\n\n.todo-list .step--complete .step__complete-button:after {\n  content: '\\2713';\n  position: absolute;\n  bottom: -4px;\n  right: 0px; }\n\n.todo-list .rotate-180 {\n  transform: rotate(180deg); }\n\n.todo-list .toggle-detail-icon {\n  transition: transform .25s ease-in-out; }\n\n.todo-list .todo-detail-view {\n  transition: max-height .25s ease-in-out; }\n", ""]);
 
 // exports
 

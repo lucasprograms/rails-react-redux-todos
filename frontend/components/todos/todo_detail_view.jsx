@@ -1,5 +1,6 @@
 import React from 'react'
 import StepListItemContainer from 'Components/step_list/step_list_container'
+import TodoTagsView from './todo_tags_view'
 
 const TodoDetailView = ({ todo, show, updateTodo, destroyTodo }) => (
   <div
@@ -11,6 +12,7 @@ const TodoDetailView = ({ todo, show, updateTodo, destroyTodo }) => (
     }}
   >
     <p className="card-text">{todo.body}</p>
+    <TodoTagsView tags={todo.tags} />
     <StepListItemContainer todoId={todo.id} todo={todo}/>
     <a
       className="btn btn-outline-info btn-sm mr-3 todo__complete-button"
