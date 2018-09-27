@@ -825,6 +825,13 @@ function (_Component) {
           removeTodo = _this$props.removeTodo,
           toggleCompleteTodo = _this$props.toggleCompleteTodo,
           todos = _this$props.todos;
+
+      var TodoPlaceholder = function TodoPlaceholder() {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+          className: "pt-2 pb-2"
+        }, "Todos go here!", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "Try building one using the form below \u2193");
+      };
+
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row mt-3 todo-list justify-content-center"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
@@ -837,11 +844,10 @@ function (_Component) {
           key: todo.id,
           todo: todo,
           removeTodo: removeTodo,
-          toggleCompleteTodo: toggleCompleteTodo
+          toggleCompleteTodo: toggleCompleteTodo,
+          showTooltip: todos.length === 1
         });
-      }) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-        className: "pt-2 pb-2"
-      }, "Todos go here!", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "Try building one using the form below \u2193")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(TodoPlaceholder, null)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row justify-content-center col-10 col-sm-8"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_todo_list_form__WEBPACK_IMPORTED_MODULE_2__["default"], {
         createTodo: createTodo,
@@ -1093,7 +1099,8 @@ function (_Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(TodoListItem).call(this, props));
     _this.state = {
-      detail: false
+      detail: false,
+      detailShown: false
     };
     return _this;
   }
@@ -1102,13 +1109,19 @@ function (_Component) {
     key: "toggleDetail",
     value: function toggleDetail() {
       this.setState({
-        detail: !this.state.detail
+        detail: !this.state.detail,
+        detailShown: true
       });
     }
   }, {
     key: "render",
     value: function render() {
-      var todo = this.props.todo;
+      var _this$props = this.props,
+          todo = _this$props.todo,
+          showTooltip = _this$props.showTooltip;
+      var _this$state = this.state,
+          detailShown = _this$state.detailShown,
+          detail = _this$state.detail;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card col-12 col-lg-8 mt-2 mb-2 ".concat(todo.done ? 'todo--complete' : 'todo--incomplete'),
         style: {
@@ -1127,11 +1140,13 @@ function (_Component) {
         style: {
           textDecoration: todo.done ? 'line-through' : 'none'
         }
-      }, todo.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "toggle-detail-icon ".concat(this.state.detail ? 'rotate-180' : '')
-      }, "\u25B2")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_todo_detail_container__WEBPACK_IMPORTED_MODULE_1__["default"], {
+      }, todo.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        className: "toggle-detail-icon ".concat(detail ? 'rotate-180' : '')
+      }, "\u25B2"), showTooltip && !detailShown ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("small", {
+        className: "mt-1 ml-1"
+      }, "\u2190", " click to show todo details") : ''), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_todo_detail_container__WEBPACK_IMPORTED_MODULE_1__["default"], {
         todo: todo,
-        show: this.state.detail
+        show: detail
       })));
     }
   }]);

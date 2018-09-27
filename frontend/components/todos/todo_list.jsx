@@ -9,6 +9,7 @@ class TodoList extends Component {
 
   render () {
     const { createTodo, errors, removeTodo, toggleCompleteTodo, todos } = this.props
+    const TodoPlaceholder = () => <li className="pt-2 pb-2">Todos go here!<br />Try building one using the form below &#x2193;</li>
 
     return (
       <div className="row mt-3 todo-list justify-content-center">
@@ -21,8 +22,9 @@ class TodoList extends Component {
               todo={todo}
               removeTodo={removeTodo}
               toggleCompleteTodo={toggleCompleteTodo}
+              showTooltip={todos.length === 1}
             />
-          )) : <li className="pt-2 pb-2">Todos go here!<br />Try building one using the form below &#x2193;</li>}
+          )) : <TodoPlaceholder />}
             </ul>
         <div className="row justify-content-center col-10 col-sm-8">
           <TodoListForm createTodo={createTodo} errors={errors} />

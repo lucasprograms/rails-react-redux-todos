@@ -6,18 +6,21 @@ class TodoListItem extends Component {
     super(props)
 
     this.state = {
-      detail: false
+      detail: false,
+      detailShown: false
     }
   }
 
   toggleDetail () {
     this.setState({
-      detail: !this.state.detail
+      detail: !this.state.detail,
+      detailShown: true
     })
   }
 
   render () {
-    const todo = this.props.todo
+    const { todo, showTooltip } = this.props
+    const { detailShown, detail } = this.state
 
     return (
       <div
@@ -36,14 +39,18 @@ class TodoListItem extends Component {
             >
               {todo.title}
             </h5>
-            <div className={`toggle-detail-icon ${this.state.detail ? 'rotate-180' : ''}`}>{'\u25b2'}</div>
+            <a
+              className={`toggle-detail-icon ${detail ? 'rotate-180' : ''}`}
+            >
+              {'\u25b2'}
+            </a>
+            { showTooltip && !detailShown ? <small className="mt-1 ml-1">{'\u2190'} click to show todo details</small> : ''}
           </div>
-          <TodoDetailContainer todo={todo} show={this.state.detail}/>
+          <TodoDetailContainer todo={todo} show={detail}/>
         </div>
       </div>
     )
   }
 }
-
 
 export default TodoListItem;
