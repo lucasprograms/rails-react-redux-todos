@@ -15,14 +15,14 @@ class TodoList extends Component {
         <ul className="row col-10 col-sm-8 rounded"
           style={{ backgroundColor: 'beige' }}
         >
-          {todos.map((todo) => (
+          {todos.length ? todos.map((todo) => (
             <TodoListItem
               key={todo.id}
               todo={todo}
               removeTodo={removeTodo}
               toggleCompleteTodo={toggleCompleteTodo}
             />
-          ))}
+          )) : <li class="pt-2 pb-2">Todos go here!<br />Try building one using the form below &#x2193;</li>}
             </ul>
         <div className="row justify-content-center col-10 col-sm-8">
           <TodoListForm createTodo={createTodo} errors={errors} />

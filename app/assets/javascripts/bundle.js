@@ -832,14 +832,16 @@ function (_Component) {
         style: {
           backgroundColor: 'beige'
         }
-      }, todos.map(function (todo) {
+      }, todos.length ? todos.map(function (todo) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_todo_list_item__WEBPACK_IMPORTED_MODULE_1__["default"], {
           key: todo.id,
           todo: todo,
           removeTodo: removeTodo,
           toggleCompleteTodo: toggleCompleteTodo
         });
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+        class: "pt-2 pb-2"
+      }, "Todos go here!", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "Try building one using the form below \u2193")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row justify-content-center col-10 col-sm-8"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_todo_list_form__WEBPACK_IMPORTED_MODULE_2__["default"], {
         createTodo: createTodo,
