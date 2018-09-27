@@ -44,9 +44,9 @@ export default class TodoListForm extends Component {
 
     return (
       <div className="col-12">
-        <ul className={`alert alert-danger ${errors[0] ? '' : 'd-none'}`}>
-          <li className="font-weight-bold">We encountered {this.getErrorTitle(errors)}:</li>
-          {errors.map((error, index) => (
+        <ul className={`alert alert-danger ${errors.todos[0] ? '' : 'd-none'}`}>
+          <li className="font-weight-bold">We encountered {this.getErrorTitle(errors.todos)}:</li>
+          {errors.todos.map((error, index) => (
             <li key={index}>{error}</li>
           ))}
         </ul>

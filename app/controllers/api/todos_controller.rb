@@ -15,7 +15,7 @@ class Api::TodosController < ApplicationController
     if @todo.save
       render json: @todo, include: :tags
     else
-      render json: @todo.errors.full_messages, status: :unproccesable_entity
+      render json: @todo.errors.full_messages, status: :unprocessable_entity
     end
   end
 
@@ -25,7 +25,7 @@ class Api::TodosController < ApplicationController
     if @todo.update_attributes(todo_params)
       render json: @todo, include: :tags
     else
-      render json: @todo.errors.full_messages, status: :unproccesable_entity
+      render json: @todo.errors.full_messages, status: :unprocessable_entity
     end
   end
 

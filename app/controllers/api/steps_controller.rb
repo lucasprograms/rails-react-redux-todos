@@ -10,7 +10,7 @@ class Api::StepsController < ApplicationController
     if @step.save
       render json: @step
     else
-      render json: @step.errors.full_messages, status: :unproccesable_entity
+      render json: @step.errors.full_messages, status: :unprocessable_entity
     end
   end
 
@@ -20,7 +20,7 @@ class Api::StepsController < ApplicationController
     if @step.update_attributes(step_params)
       render json: @step
     else
-      render json: @step.errors.full_messages, status: :unproccesable_entity
+      render json: @step.errors.full_messages, status: :unprocessable_entity
     end
   end
 
