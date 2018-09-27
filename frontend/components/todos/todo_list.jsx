@@ -22,7 +22,7 @@ class TodoList extends Component {
               removeTodo={removeTodo}
               toggleCompleteTodo={toggleCompleteTodo}
             />
-          )) : <li class="pt-2 pb-2">Todos go here!<br />Try building one using the form below &#x2193;</li>}
+          )) : <li className="pt-2 pb-2">Todos go here!<br />Try building one using the form below &#x2193;</li>}
             </ul>
         <div className="row justify-content-center col-10 col-sm-8">
           <TodoListForm createTodo={createTodo} errors={errors} />

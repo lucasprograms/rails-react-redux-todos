@@ -840,7 +840,7 @@ function (_Component) {
           toggleCompleteTodo: toggleCompleteTodo
         });
       }) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-        class: "pt-2 pb-2"
+        className: "pt-2 pb-2"
       }, "Todos go here!", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "Try building one using the form below \u2193")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row justify-content-center col-10 col-sm-8"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_todo_list_form__WEBPACK_IMPORTED_MODULE_2__["default"], {
