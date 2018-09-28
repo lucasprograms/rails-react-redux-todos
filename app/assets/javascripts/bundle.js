@@ -1351,7 +1351,7 @@ function (_Component) {
           }
         }, tag.name);
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
-        className: "alert alert-danger ".concat(errors.tags[0] ? '' : 'd-none')
+        className: "alert alert-danger pt-1 pb-1 mt-1 mb-1 ".concat(errors.tags[0] ? '' : 'd-none')
       }, errors.tags.map(function (error, index) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
           key: index

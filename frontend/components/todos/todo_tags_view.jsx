@@ -41,7 +41,7 @@ class TodoTagsView extends Component {
               {tag.name}
             </a>
         ))}
-        <ul className={`alert alert-danger ${errors.tags[0] ? '' : 'd-none'}`}>
+        <ul className={`alert alert-danger pt-1 pb-1 mt-1 mb-1 ${errors.tags[0] ? '' : 'd-none'}`}>
           {errors.tags.map((error, index) => (
             <li key={index}>{error}</li>
           ))}
