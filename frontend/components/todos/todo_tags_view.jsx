@@ -16,11 +16,16 @@ class TodoTagsView extends Component {
   }
 
   handleSubmit (createTag) {
-    createTag(this.state, this.props.todoId).then(() => {
+    createTag({ name: this.state.name }, this.props.todoId).then(() => {
       this.setState({
         name: ''
       })
     })
+  }
+
+  handleTagClick (tag) {
+    this.props.filterByTag(tag)
+
   }
 
   render () {
@@ -28,12 +33,14 @@ class TodoTagsView extends Component {
 
     return (
       <div>
-        <ul>
-          <li className="col-12 pl-0 font-weight-bold">Tags:</li>
-          {tags.map((tag, idx) => (
-            <li className="badge badge-secondary tag mr-1" key={idx}>{tag.name}</li>
-          ))}
-        </ul>
+        <h6 className="col-12 pl-0 mb-0 font-weight-bold">Tags:</h6>
+        {tags.map((tag, idx) => (
+            <a href="#" key={idx} className="font-weight-normal text-monospace badge badge-secondary tag mr-1"
+                onClick={() => this.handleTagClick(tag) }
+            >
+              {tag.name}
+            </a>
+        ))}
         <ul className={`alert alert-danger ${errors.tags[0] ? '' : 'd-none'}`}>
           {errors.tags.map((error, index) => (
             <li key={index}>{error}</li>
@@ -41,7 +48,13 @@ class TodoTagsView extends Component {
         </ul>
         <form className="mt-2" onSubmit={(e) => { e.preventDefault(); this.handleSubmit(createTag) } }>
           <div className="form-group">
-            <input value={this.state.name} className="form-control" type="text" placeholder="new tag" onChange={(e) => this.updateName(e)}/>
+            <input 
+              value={this.state.name}
+              className="form-control"
+              type="text"
+              placeholder="new tag"
+              onChange={(e) => this.updateName(e)}
+            />
           </div>
         </form>
       </div>

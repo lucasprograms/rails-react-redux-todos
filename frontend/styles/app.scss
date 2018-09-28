@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Chakra+Petch|Monoton|Roboto+Mono');
 @import './reset.scss';
 
 .todo-list {
@@ -41,5 +42,21 @@
 
   .todo-detail-view {
     transition: max-height .25s ease-in-out;
+  }
+}
+
+header {
+  h1 {
+    font-family: 'Monoton', cursive;
+  }
+}
+
+body {
+  form {
+    font-family: 'Chakra Petch', sans-serif;
+  }
+
+  ul {
+    font-family: 'Roboto Mono', sans-serif;
   }
 }

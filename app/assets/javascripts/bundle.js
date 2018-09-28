@@ -298,6 +298,35 @@ var createTag = function createTag(tag, todoId) {
 
 /***/ }),
 
+/***/ "./frontend/actions/todo_display_actions.js":
+/*!**************************************************!*\
+  !*** ./frontend/actions/todo_display_actions.js ***!
+  \**************************************************/
+/*! exports provided: SHOW_ALL_TODOS, FILTER_BY_TAG, filterByTag, showAllTodos */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SHOW_ALL_TODOS", function() { return SHOW_ALL_TODOS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FILTER_BY_TAG", function() { return FILTER_BY_TAG; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "filterByTag", function() { return filterByTag; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "showAllTodos", function() { return showAllTodos; });
+var SHOW_ALL_TODOS = 'SHOW_ALL_TODOS';
+var FILTER_BY_TAG = 'FILTER_BY_TAG';
+var filterByTag = function filterByTag(tag) {
+  return {
+    type: FILTER_BY_TAG,
+    tag: tag
+  };
+};
+var showAllTodos = function showAllTodos() {
+  return {
+    type: SHOW_ALL_TODOS
+  };
+};
+
+/***/ }),
+
 /***/ "./frontend/components/App.jsx":
 /*!*************************************!*\
   !*** ./frontend/components/App.jsx ***!
@@ -822,9 +851,11 @@ function (_Component) {
       var _this$props = this.props,
           createTodo = _this$props.createTodo,
           errors = _this$props.errors,
+          filteredByTag = _this$props.filteredByTag,
           removeTodo = _this$props.removeTodo,
-          toggleCompleteTodo = _this$props.toggleCompleteTodo,
-          todos = _this$props.todos;
+          showAllTodos = _this$props.showAllTodos,
+          todos = _this$props.todos,
+          toggleCompleteTodo = _this$props.toggleCompleteTodo;
 
       var TodoPlaceholder = function TodoPlaceholder() {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
@@ -832,10 +863,33 @@ function (_Component) {
         }, "Todos go here!", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "Try building one using the form below \u2193");
       };
 
+      var FilteredByTagHeader = function FilteredByTagHeader() {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "d-flex justify-content-between align-items-center alert alert-info col-10 offset-1"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
+          className: "mt-2"
+        }, "Showing ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+          className: "badge badge-secondary"
+        }, filteredByTag.name), " Todos"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+          type: "button",
+          className: "btn btn-outline-dark",
+          onClick: showAllTodos
+        }, "Show All"));
+      };
+
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "row mt-3 todo-list justify-content-center"
+        className: "mt-3"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row"
+      }, filteredByTag ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(FilteredByTagHeader, null) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-12 mb-2",
+        style: {
+          height: '24px'
+        }
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row todo-list justify-content-center"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
-        className: "row col-10 col-sm-8 rounded",
+        className: "row col-10 rounded",
         style: {
           backgroundColor: 'beige'
         }
@@ -848,11 +902,11 @@ function (_Component) {
           showTooltip: todos.length === 1
         });
       }) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(TodoPlaceholder, null)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "row justify-content-center col-10 col-sm-8"
+        className: "row justify-content-center col-10"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_todo_list_form__WEBPACK_IMPORTED_MODULE_2__["default"], {
         createTodo: createTodo,
         errors: errors
-      })));
+      }))));
     }
   }]);
 
@@ -876,7 +930,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _todo_list__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./todo_list */ "./frontend/components/todos/todo_list.jsx");
 /* harmony import */ var Reducers_selectors__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! Reducers/selectors */ "./frontend/reducers/selectors.js");
 /* harmony import */ var Actions_todo_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! Actions/todo_actions */ "./frontend/actions/todo_actions.js");
-/* harmony import */ var Actions_step_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! Actions/step_actions */ "./frontend/actions/step_actions.js");
+/* harmony import */ var Actions_todo_display_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! Actions/todo_display_actions */ "./frontend/actions/todo_display_actions.js");
+/* harmony import */ var Actions_step_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! Actions/step_actions */ "./frontend/actions/step_actions.js");
+
 
 
 
@@ -885,8 +941,9 @@ __webpack_require__.r(__webpack_exports__);
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    todos: Object(Reducers_selectors__WEBPACK_IMPORTED_MODULE_2__["allTodos"])(state),
-    errors: state.errors
+    todos: state.todosDisplay.tag ? Object(Reducers_selectors__WEBPACK_IMPORTED_MODULE_2__["filterByTag"])(state) : Object(Reducers_selectors__WEBPACK_IMPORTED_MODULE_2__["allTodos"])(state),
+    errors: state.errors,
+    filteredByTag: state.todosDisplay.tag
   };
 };
 
@@ -896,13 +953,16 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
       return dispatch(Object(Actions_todo_actions__WEBPACK_IMPORTED_MODULE_3__["fetchTodos"])());
     },
     fetchSteps: function fetchSteps() {
-      return dispatch(Object(Actions_step_actions__WEBPACK_IMPORTED_MODULE_4__["fetchSteps"])());
+      return dispatch(Object(Actions_step_actions__WEBPACK_IMPORTED_MODULE_5__["fetchSteps"])());
     },
     createTodo: function createTodo(todo) {
       return dispatch(Object(Actions_todo_actions__WEBPACK_IMPORTED_MODULE_3__["createTodo"])(todo));
     },
     receiveTodo: function receiveTodo(todo) {
       return dispatch(Object(Actions_todo_actions__WEBPACK_IMPORTED_MODULE_3__["receiveTodo"])(todo));
+    },
+    showAllTodos: function showAllTodos() {
+      return dispatch(Object(Actions_todo_display_actions__WEBPACK_IMPORTED_MODULE_4__["showAllTodos"])());
     }
   };
 };
@@ -1170,6 +1230,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _todo_tags_view__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./todo_tags_view */ "./frontend/components/todos/todo_tags_view.jsx");
 /* harmony import */ var Actions_todo_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! Actions/todo_actions */ "./frontend/actions/todo_actions.js");
+/* harmony import */ var Actions_todo_display_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! Actions/todo_display_actions */ "./frontend/actions/todo_display_actions.js");
+
 
 
 
@@ -1184,6 +1246,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     createTag: function createTag(tag, todoId) {
       return dispatch(Object(Actions_todo_actions__WEBPACK_IMPORTED_MODULE_2__["createTag"])(tag, todoId));
+    },
+    filterByTag: function filterByTag(tag) {
+      return dispatch(Object(Actions_todo_display_actions__WEBPACK_IMPORTED_MODULE_3__["filterByTag"])(tag));
     }
   };
 };
@@ -1252,11 +1317,18 @@ function (_Component) {
     value: function handleSubmit(createTag) {
       var _this2 = this;
 
-      createTag(this.state, this.props.todoId).then(function () {
+      createTag({
+        name: this.state.name
+      }, this.props.todoId).then(function () {
         _this2.setState({
           name: ''
         });
       });
+    }
+  }, {
+    key: "handleTagClick",
+    value: function handleTagClick(tag) {
+      this.props.filterByTag(tag);
     }
   }, {
     key: "render",
@@ -1267,14 +1339,18 @@ function (_Component) {
           tags = _this$props.tags,
           createTag = _this$props.createTag,
           errors = _this$props.errors;
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-        className: "col-12 pl-0 font-weight-bold"
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h6", {
+        className: "col-12 pl-0 mb-0 font-weight-bold"
       }, "Tags:"), tags.map(function (tag, idx) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-          className: "badge badge-secondary tag mr-1",
-          key: idx
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+          href: "#",
+          key: idx,
+          className: "font-weight-normal text-monospace badge badge-secondary tag mr-1",
+          onClick: function onClick() {
+            return _this3.handleTagClick(tag);
+          }
         }, tag.name);
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
         className: "alert alert-danger ".concat(errors.tags[0] ? '' : 'd-none')
       }, errors.tags.map(function (error, index) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
@@ -1389,6 +1465,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _todos_reducer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./todos_reducer */ "./frontend/reducers/todos_reducer.js");
 /* harmony import */ var _steps_reducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./steps_reducer */ "./frontend/reducers/steps_reducer.js");
 /* harmony import */ var _error_reducer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./error_reducer */ "./frontend/reducers/error_reducer.js");
+/* harmony import */ var _todos_display_reducer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./todos_display_reducer */ "./frontend/reducers/todos_display_reducer.js");
+
 
 
 
@@ -1396,7 +1474,8 @@ __webpack_require__.r(__webpack_exports__);
 var rootReducer = Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
   todos: _todos_reducer__WEBPACK_IMPORTED_MODULE_1__["default"],
   steps: _steps_reducer__WEBPACK_IMPORTED_MODULE_2__["default"],
-  errors: _error_reducer__WEBPACK_IMPORTED_MODULE_3__["default"]
+  errors: _error_reducer__WEBPACK_IMPORTED_MODULE_3__["default"],
+  todosDisplay: _todos_display_reducer__WEBPACK_IMPORTED_MODULE_4__["default"]
 });
 /* harmony default export */ __webpack_exports__["default"] = (rootReducer);
 
@@ -1406,16 +1485,24 @@ var rootReducer = Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])(
 /*!****************************************!*\
   !*** ./frontend/reducers/selectors.js ***!
   \****************************************/
-/*! exports provided: allTodos, stepsByTodoId */
+/*! exports provided: allTodos, filterByTag, stepsByTodoId */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "allTodos", function() { return allTodos; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "filterByTag", function() { return filterByTag; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "stepsByTodoId", function() { return stepsByTodoId; });
 var allTodos = function allTodos(state) {
   return Object.keys(state.todos).map(function (key) {
     return state.todos[key];
+  });
+};
+var filterByTag = function filterByTag(state) {
+  return allTodos(state).filter(function (todo) {
+    return todo.tags.filter(function (tag) {
+      return tag.name === state.todosDisplay.tag.name;
+    }).length;
   });
 };
 
@@ -1483,6 +1570,43 @@ var stepsReducer = function stepsReducer() {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (stepsReducer);
+
+/***/ }),
+
+/***/ "./frontend/reducers/todos_display_reducer.js":
+/*!****************************************************!*\
+  !*** ./frontend/reducers/todos_display_reducer.js ***!
+  \****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var Actions_todo_display_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! Actions/todo_display_actions */ "./frontend/actions/todo_display_actions.js");
+
+var initialState = {
+  tag: null
+};
+
+var todosDisplayReducer = function todosDisplayReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+
+  switch (action.type) {
+    case Actions_todo_display_actions__WEBPACK_IMPORTED_MODULE_0__["FILTER_BY_TAG"]:
+      return {
+        tag: action.tag
+      };
+
+    case Actions_todo_display_actions__WEBPACK_IMPORTED_MODULE_0__["SHOW_ALL_TODOS"]:
+      return initialState;
+
+    default:
+      return state;
+  }
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (todosDisplayReducer);
 
 /***/ }),
 
@@ -1703,10 +1827,10 @@ exports.push([module.i, "/*!\n * Bootstrap v4.1.3 (https://getbootstrap.com/)\n 
 
 exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
 // imports
-
+exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Chakra+Petch|Monoton|Roboto+Mono);", ""]);
 
 // module
-exports.push([module.i, "/* http://meyerweb.com/eric/tools/css/reset/ \n   v2.0 | 20110126\n   License: none (public domain)\n*/\nhtml, body, div, span, applet, object, iframe,\nh1, h2, h3, h4, h5, h6, p, blockquote, pre,\na, abbr, acronym, address, big, cite, code,\ndel, dfn, em, img, ins, kbd, q, s, samp,\nsmall, strike, strong, sub, sup, tt, var,\nb, u, i, center,\ndl, dt, dd, ol, ul, li,\nfieldset, form, label, legend,\ntable, caption, tbody, tfoot, thead, tr, th, td,\narticle, aside, canvas, details, embed,\nfigure, figcaption, footer, header, hgroup,\nmenu, nav, output, ruby, section, summary,\ntime, mark, audio, video {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  font-size: 100%;\n  font: inherit;\n  vertical-align: baseline; }\n\n/* HTML5 display-role reset for older browsers */\narticle, aside, details, figcaption, figure,\nfooter, header, hgroup, menu, nav, section {\n  display: block; }\n\nbody {\n  line-height: 1; }\n\nol, ul {\n  list-style: none; }\n\nblockquote, q {\n  quotes: none; }\n\nblockquote:before, blockquote:after,\nq:before, q:after {\n  content: '';\n  content: none; }\n\ntable {\n  border-collapse: collapse;\n  border-spacing: 0; }\n\n.todo-list .todo--incomplete .todo__complete-button:hover:after {\n  content: '\\2713'; }\n\n.todo-list .todo--complete .todo__complete-button:after {\n  content: '\\2713'; }\n\n.todo-list .step--incomplete .step__complete-button:hover:after {\n  content: '\\2713';\n  position: absolute;\n  bottom: -4px;\n  right: 0px; }\n\n.todo-list .step--complete .step__complete-button:after {\n  content: '\\2713';\n  position: absolute;\n  bottom: -4px;\n  right: 0px; }\n\n.todo-list .rotate-180 {\n  transform: rotate(180deg); }\n\n.todo-list .toggle-detail-icon {\n  transition: transform .25s ease-in-out; }\n\n.todo-list .todo-detail-view {\n  transition: max-height .25s ease-in-out; }\n", ""]);
+exports.push([module.i, "/* http://meyerweb.com/eric/tools/css/reset/ \n   v2.0 | 20110126\n   License: none (public domain)\n*/\nhtml, body, div, span, applet, object, iframe,\nh1, h2, h3, h4, h5, h6, p, blockquote, pre,\na, abbr, acronym, address, big, cite, code,\ndel, dfn, em, img, ins, kbd, q, s, samp,\nsmall, strike, strong, sub, sup, tt, var,\nb, u, i, center,\ndl, dt, dd, ol, ul, li,\nfieldset, form, label, legend,\ntable, caption, tbody, tfoot, thead, tr, th, td,\narticle, aside, canvas, details, embed,\nfigure, figcaption, footer, header, hgroup,\nmenu, nav, output, ruby, section, summary,\ntime, mark, audio, video {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  font-size: 100%;\n  font: inherit;\n  vertical-align: baseline; }\n\n/* HTML5 display-role reset for older browsers */\narticle, aside, details, figcaption, figure,\nfooter, header, hgroup, menu, nav, section {\n  display: block; }\n\nbody {\n  line-height: 1; }\n\nol, ul {\n  list-style: none; }\n\nblockquote, q {\n  quotes: none; }\n\nblockquote:before, blockquote:after,\nq:before, q:after {\n  content: '';\n  content: none; }\n\ntable {\n  border-collapse: collapse;\n  border-spacing: 0; }\n\n.todo-list .todo--incomplete .todo__complete-button:hover:after {\n  content: '\\2713'; }\n\n.todo-list .todo--complete .todo__complete-button:after {\n  content: '\\2713'; }\n\n.todo-list .step--incomplete .step__complete-button:hover:after {\n  content: '\\2713';\n  position: absolute;\n  bottom: -4px;\n  right: 0px; }\n\n.todo-list .step--complete .step__complete-button:after {\n  content: '\\2713';\n  position: absolute;\n  bottom: -4px;\n  right: 0px; }\n\n.todo-list .rotate-180 {\n  transform: rotate(180deg); }\n\n.todo-list .toggle-detail-icon {\n  transition: transform .25s ease-in-out; }\n\n.todo-list .todo-detail-view {\n  transition: max-height .25s ease-in-out; }\n\nheader h1 {\n  font-family: 'Monoton', cursive; }\n\nbody form {\n  font-family: 'Chakra Petch', sans-serif; }\n\nbody ul {\n  font-family: 'Roboto Mono', sans-serif; }\n", ""]);
 
 // exports
 
