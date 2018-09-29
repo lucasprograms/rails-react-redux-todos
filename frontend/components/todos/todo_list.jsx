@@ -27,7 +27,7 @@ class TodoList extends Component {
       toggleCompleteTodo
     } = this.props
 
-    const TodoPlaceholder = () => <li className="pt-2 pb-2">Todos go here!<br />Try building one using the form below &#x2193;</li>
+    const TodoPlaceholder = () => <li className="pt-2 pb-2">Todos go here!<br />Try building one using the button below</li>
     const FilteredByTagHeader = () => {
       return (
         <div className="d-flex justify-content-between align-items-center alert alert-info col-10 offset-1">
