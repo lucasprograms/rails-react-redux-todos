@@ -1,4 +1,12 @@
 import React, { Component } from 'react'
+import { css } from 'react-emotion';
+import { HashLoader } from 'react-spinners'
+
+const override = css`
+    display: block;
+    margin: 0 auto;
+    border-color: red;
+`;
 
 export default class TodoListForm extends Component {
   constructor(props) {
@@ -40,7 +48,7 @@ export default class TodoListForm extends Component {
   }
 
   render() {
-    const { createTodo, errors } = this.props
+    const { createTodo, errors, isCreating } = this.props
 
     return (
       <div className="col-12">
@@ -61,9 +69,17 @@ export default class TodoListForm extends Component {
           </div>
           <button
             className="btn btn-outline-dark"
+            style={{ minWidth: '113px' }}
+            disabled={isCreating}
             onClick={(e) => { e.preventDefault(); this.handleSubmit(createTodo) }}
           >
-            Create Todo
+            <HashLoader
+              sizeUnit={"px"}
+              size={25}
+              color={'#123abc'}
+              loading={isCreating}
+            />
+            { isCreating ? '' : 'Create Todo'}
           </button>
         </form>
       </div>

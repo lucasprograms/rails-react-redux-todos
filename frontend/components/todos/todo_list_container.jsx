@@ -8,7 +8,9 @@ import { fetchSteps } from 'Actions/step_actions'
 const mapStateToProps = (state) => ({
   todos: state.todosDisplay.tag ? filterByTag(state) : allTodos(state),
   errors: state.errors,
-  filteredByTag: state.todosDisplay.tag
+  filteredByTag: state.todosDisplay.tag,
+  isFetching: state.todosFetching.isFetching,
+  isCreating: state.todosFetching.isCreating
 });
 
 const mapDispatchToProps = (dispatch) => ({

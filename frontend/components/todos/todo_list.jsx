@@ -1,6 +1,13 @@
 import React, { Component } from 'react'
+import { css } from 'react-emotion';
+import { HashLoader } from 'react-spinners'
 import TodoListItem from './todo_list_item'
 import TodoListForm from './todo_list_form'
+
+const override = css`
+    flex: 0 0 100%;
+`;
+
 
 class TodoList extends Component {
   componentDidMount () {
@@ -12,6 +19,8 @@ class TodoList extends Component {
       createTodo,
       errors,
       filteredByTag,
+      isCreating,
+      isFetching,
       removeTodo,
       showAllTodos,
       todos,
@@ -36,6 +45,13 @@ class TodoList extends Component {
           { filteredByTag ? <FilteredByTagHeader /> : <div className="col-12 mb-2" style={{ height: '24px' }} />}
         </div>
         <div className="row todo-list justify-content-center">
+          <HashLoader
+            className={override}
+            sizeUnit={"px"}
+            size={50}
+            color={'#123abc'}
+            loading={isFetching}
+          />
           <ul className="row col-10 rounded"
             style={{ backgroundColor: 'beige' }}
           >
@@ -50,7 +66,11 @@ class TodoList extends Component {
             )) : <TodoPlaceholder />}
               </ul>
           <div className="row justify-content-center col-10">
-            <TodoListForm createTodo={createTodo} errors={errors} />
+            <TodoListForm
+              createTodo={createTodo}
+              errors={errors}
+              isCreating={isCreating}
+            />
           </div>
         </div>
       </div>
