@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import TodoListContainer from './todos/todo_list_container'
 
 const App = () => <TodoListContainer />

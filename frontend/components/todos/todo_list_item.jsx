@@ -37,7 +37,7 @@ class TodoListItem extends Component {
               className="mr-2"
               style={{ textDecoration: todo.done ? 'line-through' : 'none' }}
             >
-              {todo.title} {todo.due_date ? (todo.due_date) : ''}
+              {todo.title}
             </h5>
             <a
               className={`toggle-detail-icon ${detail ? 'rotate-180' : ''}`}
