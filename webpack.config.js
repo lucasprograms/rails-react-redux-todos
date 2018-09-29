@@ -6,7 +6,7 @@ module.exports = {
     filename: './bundle.js',
     path: path.join(__dirname, 'app', 'assets', 'javascripts'),
   },
-  mode: 'development',
+  mode: 'production',
   module: {
     rules: [
       {
