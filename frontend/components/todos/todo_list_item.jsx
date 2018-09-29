@@ -52,15 +52,15 @@ class TodoListItem extends Component {
                 {todo.title}
               </h5>
               <a
-                className={`toggle-detail-icon ${detail ? 'rotate-180' : ''}`}
+                className={`position-relative toggle-detail-icon ${detail ? 'rotate-180' : ''}`}
               >
+                {showTooltip && !detailShown ? <span class="alert alert-info position-absolute expand-arrow-tip">click arrow to show todo details</span> : ''}
                 {'\u25b2'}
               </a>
             </div>
             {todo.due_date ?
               <p className={`badge badge-${getDueDateBadgeColor(todo.due_date)}`}>Due {moment(todo.due_date).calendar()}</p>
             : ''}
-            { showTooltip && !detailShown ? <small className="mt-1 ml-1">{'\u2190'} click to show todo details</small> : ''}
           </div>
           <TodoDetailContainer todo={todo} show={detail}/>
         </div>

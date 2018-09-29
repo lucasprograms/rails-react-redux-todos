@@ -3,7 +3,6 @@ import DateTime from 'react-datetime'
 import 'react-datetime/css/react-datetime.css'
 import { css } from 'react-emotion';
 import { HashLoader } from 'react-spinners'
-import 'bootstrap/dist/js/bootstrap.min.js'
 
 const override = css`
     display: block;
