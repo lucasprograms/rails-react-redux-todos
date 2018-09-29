@@ -1,6 +1,17 @@
 import React from 'react'
+import moment from 'moment'
 import StepListItemContainer from 'Components/step_list/step_list_container'
 import TodoTagsContainer from './todo_tags_container'
+
+const getDueDateBadgeColor = (date) => {
+  if (moment(date).isBefore(moment.now())) {
+    return 'danger'
+  } else if (moment(date).isBetween(moment(), moment().add(2, 'days'))) {
+    return 'warning'
+  } else {
+    return 'success'
+  }
+}
 
 const TodoDetailView = ({ todo, show, updateTodo, destroyTodo }) => (
   <div
@@ -11,6 +22,11 @@ const TodoDetailView = ({ todo, show, updateTodo, destroyTodo }) => (
       overflow: 'hidden'
     }}
   >
+    {todo.due_date ?
+      <h5 className="card-text" style={{ lineHeight: 1.3 }}>
+        <span className={`badge badge-${getDueDateBadgeColor(todo.due_date)}`}>Due {moment(todo.due_date).calendar()}</span>
+      </h5>
+    : ''}
     <p className="card-text">{todo.body}</p>
     <TodoTagsContainer tags={todo.tags || []} todoId={todo.id} />
     <StepListItemContainer todoId={todo.id} todo={todo}/>

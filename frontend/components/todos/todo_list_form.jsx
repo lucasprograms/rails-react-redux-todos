@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
+import DateTime from 'react-datetime'
+import 'react-datetime/css/react-datetime.css'
 import { css } from 'react-emotion';
 import { HashLoader } from 'react-spinners'
+import 'bootstrap/dist/js/bootstrap.min.js'
 
 const override = css`
     display: block;
@@ -15,6 +18,8 @@ export default class TodoListForm extends Component {
     this.state = {
       title: '',
       body: '',
+      due_date: null,
+      button: 'new'
     }
   }
 
@@ -30,12 +35,28 @@ export default class TodoListForm extends Component {
     })
   }
 
+  updateDueDate (date) {
+    this.setState({
+      due_date: date.toDate()
+    })
+  }
+
+  toggleButtonName () {
+    this.setState({
+      button: this.state.button === 'new' ? 'create' : 'new'
+    })
+  }
+
   handleSubmit (createTodo) {
     createTodo(this.state).then(() => {
       this.setState({
         title: '',
-        body: ''
+        body: '',
+        due_date: null
       })
+    }).then(() => {
+      this.toggleButtonName()
+      document.getElementById('create-todo-form').classList.remove('show')
     })
   }
 
@@ -50,6 +71,29 @@ export default class TodoListForm extends Component {
   render() {
     const { createTodo, errors, isCreating } = this.props
 
+    const CreateTodoButton = () => (
+      <button
+        className="btn btn-outline-primary create-todo-button"
+        style={{ minWidth: '113px' }}
+        disabled={isCreating}
+        onClick={(e) => { e.preventDefault(); this.handleSubmit(createTodo) }}
+      >
+        <HashLoader
+          sizeUnit={"px"}
+          size={25}
+          color={'#123abc'}
+          loading={isCreating}
+        />
+        { isCreating ? '' : 'Create Todo'}
+      </button>
+    )
+
+    const NewTodoButton = () => (
+      <button onClick={this.toggleButtonName.bind(this)} className="btn btn-outline-dark" data-toggle="collapse" href="#create-todo-form" role="button" aria-expanded="false" aria-controls="create-todo-form">
+        New Todo
+      </button>
+    )
+
     return (
       <div className="col-12">
         <ul className={`alert alert-danger ${errors.todos[0] ? '' : 'd-none'}`}>
@@ -58,7 +102,9 @@ export default class TodoListForm extends Component {
             <li key={index}>{error}</li>
           ))}
         </ul>
-        <form >
+        <form>
+          { this.state.button === 'new' ? <NewTodoButton /> : <CreateTodoButton />}
+          <div className="collapse mt-2" id="create-todo-form">
           <div className="form-group">
             <label htmlFor="todo-title-input">Title:</label>
             <input id="todo-title-input" className="form-control" onChange={(e) => { this.updateTitle(e) }} value={this.state.title} />
@@ -67,20 +113,14 @@ export default class TodoListForm extends Component {
             <label htmlFor="todo-title-input">Body:</label>
             <input id="todo-body-input" className="form-control" onChange={(e) => { this.updateBody(e) }} value={this.state.body} />
           </div>
-          <button
-            className="btn btn-outline-dark"
-            style={{ minWidth: '113px' }}
-            disabled={isCreating}
-            onClick={(e) => { e.preventDefault(); this.handleSubmit(createTodo) }}
-          >
-            <HashLoader
-              sizeUnit={"px"}
-              size={25}
-              color={'#123abc'}
-              loading={isCreating}
+          <div className="form-group">
+            <label>Due Date:</label>
+            <DateTime
+              onChange={(date) => { this.updateDueDate(date) }}
+              timeConstraints={{minutes: { step: 15 }}}
             />
-            { isCreating ? '' : 'Create Todo'}
-          </button>
+          </div>
+          </div>
         </form>
       </div>
     )
