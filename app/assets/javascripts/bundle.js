@@ -952,7 +952,7 @@ function (_Component) {
         color: '#123abc',
         loading: isFetching
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
-        className: "row col-10 rounded",
+        className: "row col-10 rounded ".concat(isFetching ? 'd-none' : ''),
         style: {
           backgroundColor: 'beige'
         }

@@ -52,7 +52,7 @@ class TodoList extends Component {
             color={'#123abc'}
             loading={isFetching}
           />
-          <ul className="row col-10 rounded"
+          <ul className={`row col-10 rounded ${isFetching ? 'd-none' : ''}`}
             style={{ backgroundColor: 'beige' }}
           >
             {todos.length ? todos.map((todo) => (
