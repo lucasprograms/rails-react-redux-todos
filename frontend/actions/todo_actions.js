@@ -32,10 +32,14 @@ export const receiveTag = (tag, todoId) => ({
 export const fetchTodos = () => (dispatch) => {
   dispatch(fetchingTodos(true))
   
-  return APIUtil.fetchTodos().then(todos => {
-    dispatch(fetchingTodos(false))
-    dispatch(receiveTodos(todos))
-  })
+  return APIUtil.fetchTodos().then(
+    todos => {
+      dispatch(fetchingTodos(false))
+      dispatch(receiveTodos(todos))
+    },
+    err => {
+      dispatch(receiveErrors('todos', err.responseJSON))
+    })
 }
 
 export const createTodo = todo => (dispatch) => {

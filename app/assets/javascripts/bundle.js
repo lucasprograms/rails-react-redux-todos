@@ -259,6 +259,8 @@ var fetchTodos = function fetchTodos() {
     return Util_todo_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchTodos"]().then(function (todos) {
       dispatch(Object(_todo_fetching_actions__WEBPACK_IMPORTED_MODULE_2__["fetchingTodos"])(false));
       dispatch(receiveTodos(todos));
+    }, function (err) {
+      dispatch(Object(_error_actions__WEBPACK_IMPORTED_MODULE_1__["receiveErrors"])('todos', err.responseJSON));
     });
   };
 };
