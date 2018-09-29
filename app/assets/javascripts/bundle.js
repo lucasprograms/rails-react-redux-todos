@@ -768,10 +768,8 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var Components_step_list_step_list_container__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! Components/step_list/step_list_container */ "./frontend/components/step_list/step_list_container.jsx");
-/* harmony import */ var _todo_tags_container__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./todo_tags_container */ "./frontend/components/todos/todo_tags_container.jsx");
+/* harmony import */ var Components_step_list_step_list_container__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! Components/step_list/step_list_container */ "./frontend/components/step_list/step_list_container.jsx");
+/* harmony import */ var _todo_tags_container__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./todo_tags_container */ "./frontend/components/todos/todo_tags_container.jsx");
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -779,17 +777,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-
-
-var getDueDateBadgeColor = function getDueDateBadgeColor(date) {
-  if (moment__WEBPACK_IMPORTED_MODULE_1___default()(date).isBefore(moment__WEBPACK_IMPORTED_MODULE_1___default.a.now())) {
-    return 'danger';
-  } else if (moment__WEBPACK_IMPORTED_MODULE_1___default()(date).isBetween(moment__WEBPACK_IMPORTED_MODULE_1___default()(), moment__WEBPACK_IMPORTED_MODULE_1___default()().add(2, 'days'))) {
-    return 'warning';
-  } else {
-    return 'success';
-  }
-};
 
 var TodoDetailView = function TodoDetailView(_ref) {
   var todo = _ref.todo,
@@ -803,19 +790,12 @@ var TodoDetailView = function TodoDetailView(_ref) {
       height: show ? 'auto' : '0px',
       overflow: 'hidden'
     }
-  }, todo.due_date ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
-    className: "card-text",
-    style: {
-      lineHeight: 1.3
-    }
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-    className: "badge badge-".concat(getDueDateBadgeColor(todo.due_date))
-  }, "Due ", moment__WEBPACK_IMPORTED_MODULE_1___default()(todo.due_date).calendar())) : '', react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
     className: "card-text"
-  }, todo.body), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_todo_tags_container__WEBPACK_IMPORTED_MODULE_3__["default"], {
+  }, todo.body), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_todo_tags_container__WEBPACK_IMPORTED_MODULE_2__["default"], {
     tags: todo.tags || [],
     todoId: todo.id
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Components_step_list_step_list_container__WEBPACK_IMPORTED_MODULE_2__["default"], {
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Components_step_list_step_list_container__WEBPACK_IMPORTED_MODULE_1__["default"], {
     todoId: todo.id,
     todo: todo
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
@@ -1302,7 +1282,9 @@ function (_Component) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _todo_detail_container__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./todo_detail_container */ "./frontend/components/todos/todo_detail_container.jsx");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _todo_detail_container__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./todo_detail_container */ "./frontend/components/todos/todo_detail_container.jsx");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1320,6 +1302,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 
@@ -1359,19 +1342,32 @@ function (_Component) {
       var _this$state = this.state,
           detailShown = _this$state.detailShown,
           detail = _this$state.detail;
+
+      var getDueDateBadgeColor = function getDueDateBadgeColor(date) {
+        if (moment__WEBPACK_IMPORTED_MODULE_1___default()(date).isBefore(moment__WEBPACK_IMPORTED_MODULE_1___default.a.now())) {
+          return 'danger';
+        } else if (moment__WEBPACK_IMPORTED_MODULE_1___default()(date).isBetween(moment__WEBPACK_IMPORTED_MODULE_1___default()(), moment__WEBPACK_IMPORTED_MODULE_1___default()().add(2, 'days'))) {
+          return 'warning';
+        } else {
+          return 'success';
+        }
+      };
+
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card col-12 col-lg-8 mt-2 mb-2 ".concat(todo.done ? 'todo--complete' : 'todo--incomplete'),
         style: {
           width: '18rem'
         }
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "card-body"
+        className: "card-body pl-0 pr-0"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "card-titles justify-content-left d-flex",
+        className: "card-titles justify-content-between d-flex",
         style: {
           cursor: 'pointer'
         },
         onClick: this.toggleDetail.bind(this)
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "d-flex"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
         className: "mr-2",
         style: {
@@ -1379,9 +1375,11 @@ function (_Component) {
         }
       }, todo.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
         className: "toggle-detail-icon ".concat(detail ? 'rotate-180' : '')
-      }, "\u25B2"), showTooltip && !detailShown ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("small", {
+      }, "\u25B2")), todo.due_date ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+        className: "badge badge-".concat(getDueDateBadgeColor(todo.due_date))
+      }, "Due ", moment__WEBPACK_IMPORTED_MODULE_1___default()(todo.due_date).calendar()) : '', showTooltip && !detailShown ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("small", {
         className: "mt-1 ml-1"
-      }, "\u2190", " click to show todo details") : ''), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_todo_detail_container__WEBPACK_IMPORTED_MODULE_1__["default"], {
+      }, "\u2190", " click to show todo details") : ''), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_todo_detail_container__WEBPACK_IMPORTED_MODULE_2__["default"], {
         todo: todo,
         show: detail
       })));
