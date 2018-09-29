@@ -54,7 +54,7 @@ class TodoListItem extends Component {
               <a
                 className={`position-relative toggle-detail-icon ${detail ? 'rotate-180' : ''}`}
               >
-                {showTooltip && !detailShown ? <span class="alert alert-info position-absolute expand-arrow-tip">click arrow to show todo details</span> : ''}
+                {showTooltip && !detailShown ? <span className="alert alert-info position-absolute expand-arrow-tip">click arrow to show todo details</span> : ''}
                 {'\u25b2'}
               </a>
             </div>
