@@ -48,7 +48,7 @@ export const createTodo = todo => (dispatch) => {
         dispatch(clearErrors())
       },
       err => {
-        dispatch(creatingTodo(false)) 
+        dispatch(creatingTodo(false))
         dispatch(receiveErrors('todos', err.responseJSON))
       }
     )

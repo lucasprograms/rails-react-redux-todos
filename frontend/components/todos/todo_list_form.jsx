@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Calendar from 'rc-calendar';
 import { css } from 'react-emotion';
 import { HashLoader } from 'react-spinners'
 
@@ -66,6 +67,9 @@ export default class TodoListForm extends Component {
           <div className="form-group">
             <label htmlFor="todo-title-input">Body:</label>
             <input id="todo-body-input" className="form-control" onChange={(e) => { this.updateBody(e) }} value={this.state.body} />
+          </div>
+          <div className="form-group">
+            <Calendar />
           </div>
           <button
             className="btn btn-outline-dark"
