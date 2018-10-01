@@ -24,8 +24,11 @@ class TodoTagsView extends Component {
   }
 
   handleTagClick (tag) {
-    this.props.filterByTag(tag)
+    this.filteredByThisTag(tag) ? this.props.showAllTodos() : this.props.filterByTag(tag)
+  }
 
+  filteredByThisTag (tag) {
+    return this.props.currentTagFilterTag && tag.name === this.props.currentTagFilterTag.name
   }
 
   render () {
@@ -35,8 +38,13 @@ class TodoTagsView extends Component {
       <div>
         <h6 className="col-12 pl-0 mb-0 font-weight-bold">Tags:</h6>
         {tags.map((tag, idx) => (
-            <a href="#" key={idx} className="font-weight-normal text-monospace badge badge-secondary tag mr-1"
-                onClick={() => this.handleTagClick(tag) }
+            <a href="#" 
+              key={idx}
+              className={`
+                badge badge-${this.filteredByThisTag(tag) ? 'info' : 'secondary'} 
+                font-weight-normal text-monospace tag mr-1
+              `}
+              onClick={() => this.handleTagClick(tag) }
             >
               {tag.name}
             </a>

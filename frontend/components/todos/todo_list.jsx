@@ -14,6 +14,14 @@ class TodoList extends Component {
     this.props.fetchTodos().then(() => this.props.fetchSteps())
   }
 
+  sortByDueDate () {
+    this.props.sortByDueDate()
+  }
+
+  sortByCreatedDate () {
+    this.props.sortByCreatedDate()
+  }
+
   render () {
     const {
       createTodo,
@@ -21,6 +29,7 @@ class TodoList extends Component {
       filteredByTag,
       isCreating,
       isFetching,
+      isSortedByDate,
       removeTodo,
       showAllTodos,
       todos,
@@ -42,7 +51,7 @@ class TodoList extends Component {
     return (
       <div className="mt-3">
         <div className="row">
-          { filteredByTag ? <FilteredByTagHeader /> : <div className="col-12 mb-2" style={{ height: '24px' }} />}
+          { filteredByTag ? <FilteredByTagHeader /> : <div className="col-12 mb-2" style={{ height: '67px' }} />}
         </div>
         <div className="row todo-list justify-content-center">
           <HashLoader
@@ -55,6 +64,17 @@ class TodoList extends Component {
           <ul className={`row col-10 rounded ${isFetching ? 'd-none' : ''}`}
             style={{ backgroundColor: 'beige' }}
           >
+            <div className="col-12 d-flex justify-content-end mt-2 pr-0">
+              <div className="dropdown" style={{ width: '215px' }}>
+                <button className="btn btn-sm btn-secondary dropdown-toggle pull-right" style={{ width: '215px' }} type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Order By: {isSortedByDate ? 'Due Date' : 'Date Created'}
+                </button>
+                <div className="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                  <a className="dropdown-item" onClick={this.sortByCreatedDate.bind(this)} href="#">Date Created</a>
+                  <a className="dropdown-item" onClick={this.sortByDueDate.bind(this)} href="#">Due Date</a>
+                </div>
+              </div>
+            </div>
             {todos.length ? todos.map((todo) => (
               <TodoListItem
                 key={todo.id}
