@@ -66,7 +66,7 @@ class TodoList extends Component {
           >
             <div className="col-12 d-flex justify-content-end mt-2 pr-0">
               <div className="dropdown" style={{ width: '215px' }}>
-                <button className="btn btn-sm btn-secondary dropdown-toggle pull-right" style={{ width: '215px' }} type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button className="btn btn-sm btn-outline-secondary dropdown-toggle pull-right" style={{ width: '215px' }} type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   Order By: {isSortedByDate ? 'Due Date' : 'Date Created'}
                 </button>
                 <div className="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
