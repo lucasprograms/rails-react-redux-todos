@@ -35,6 +35,9 @@ export default class TodoListForm extends Component {
   }
 
   updateDueDate (date) {
+    if (!date.toDate) {
+      return
+    }
     this.setState({
       due_date: date.toDate()
     })
@@ -115,8 +118,9 @@ export default class TodoListForm extends Component {
           <div className="form-group">
             <label>Due Date:</label>
             <DateTime
-              onChange={(date) => { this.updateDueDate(date) }}
+              onChange={(date) => { debugger; this.updateDueDate(date) }}
               timeConstraints={{minutes: { step: 15 }}}
+              value={this.state.due_date}
             />
           </div>
           </div>
