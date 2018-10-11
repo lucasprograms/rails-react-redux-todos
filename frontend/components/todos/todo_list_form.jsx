@@ -7,7 +7,6 @@ import { HashLoader } from 'react-spinners'
 const override = css`
     display: block;
     margin: 0 auto;
-    border-color: red;
 `;
 
 export default class TodoListForm extends Component {
@@ -81,6 +80,7 @@ export default class TodoListForm extends Component {
         onClick={(e) => { e.preventDefault(); this.handleSubmit(createTodo) }}
       >
         <HashLoader
+          className={override}
           sizeUnit={"px"}
           size={25}
           color={'#123abc'}

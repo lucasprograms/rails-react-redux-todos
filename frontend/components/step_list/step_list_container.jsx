@@ -1,10 +1,10 @@
 import { connect } from 'react-redux'
 import { receiveStep, createStep } from 'Actions/step_actions'
-import { stepsByTodoId } from 'Reducers/selectors'
+import { formatStepsAsArray } from 'Reducers/selectors'
 import StepList from './step_list'
 
 const mapStateToProps = (state, ownprops) => ({
-  steps: stepsByTodoId(state, ownprops.todoId)
+  steps: formatStepsAsArray(ownprops.steps)
 })
 
 const mapDispatchToProps = (dispatch) => ({

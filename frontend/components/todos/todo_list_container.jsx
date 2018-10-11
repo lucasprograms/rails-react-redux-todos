@@ -22,7 +22,6 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   fetchTodos: () => dispatch(fetchTodos()),
-  fetchSteps: () => dispatch(fetchSteps()),
   createTodo: todo => dispatch(createTodo(todo)),
   receiveTodo: todo => dispatch(receiveTodo(todo)),
   showAllTodos: () => dispatch(showAllTodos()),

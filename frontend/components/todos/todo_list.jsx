@@ -11,7 +11,7 @@ const override = css`
 
 class TodoList extends Component {
   componentDidMount () {
-    this.props.fetchTodos().then(() => this.props.fetchSteps())
+    this.props.fetchTodos()
   }
 
   sortByDueDate () {

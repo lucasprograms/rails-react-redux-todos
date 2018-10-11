@@ -6,7 +6,7 @@ class Api::TodosController < ApplicationController
   end
 
   def index
-    render json: current_user.todos, include: :tags
+    @todos = current_user.todos.includes(:tags, :steps)
   end
 
   def create
