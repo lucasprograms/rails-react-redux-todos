@@ -2,11 +2,17 @@ class Api::TodosController < ApplicationController
   before_action :redirect_if_not_logged_in
 
   def show
-    render json: current_user.todos.find(params[:id]), include: :tags
+    @todo = Todo.find(params[:id])
+
+    if @todo.user_id == current_user.id
+      @todo
+    else
+      render json: 'access forbidden', status: :forbidden
+    end
   end
 
   def index
-    @todos = current_user.todos.includes(:tags, :steps)
+    @todos = current_user.todos
   end
 
   def create

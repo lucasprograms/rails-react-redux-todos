@@ -70,6 +70,7 @@ export const createTodo = todo => (dispatch) => {
       todo => {
         dispatch(creatingTodo(false))        
         dispatch(receiveTodo(todo))
+        dispatch(receiveCurrentTodo(todo))
         dispatch(clearErrors())
       },
       err => {

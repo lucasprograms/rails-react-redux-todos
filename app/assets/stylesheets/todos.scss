@@ -1,0 +1,25 @@
+$border: 1px solid gray;
+
+.todo-list-item {
+  padding: 1.5rem 0;
+  border-top: $border;
+  cursor: pointer;
+
+  &:first-child {
+    margin-top: .5rem;
+  }
+  
+  &:last-child {
+    border-bottom: $border;
+  }
+}
+
+.todo-expanded {
+  textarea {
+    border: none;
+    resize: none;
+    width: 100%;
+    height: 100%;
+    outline: none;
+  }
+}

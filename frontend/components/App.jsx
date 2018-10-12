@@ -1,10 +1,11 @@
 import React from 'react'
 import TodoListContainer from './todos/todo_list_container'
+import TodoExpandedContainer from './todos/todo_expanded_container'
 
 const App = () => (
-  <div>
+  <div className="row">
     <TodoListContainer />
-    {/* <CurrentTodo todo={}/> */}
+    <TodoExpandedContainer />
   </div>
 )
 

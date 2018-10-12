@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { css } from 'react-emotion';
 import { HashLoader } from 'react-spinners'
-import TodoListItem from './todo_list_item'
+import TodoListItemContainer from './todo_list_item_container'
 import TodoListForm from './todo_list_form'
 
 const override = css`
@@ -49,11 +49,20 @@ class TodoList extends Component {
     }
 
     return (
-      <div className="mt-3">
-        <div className="row">
-          { filteredByTag ? <FilteredByTagHeader /> : <div className="col-12 mb-2" style={{ height: '67px' }} />}
+      <div className="col-lg-3 border-right no-gutters">
+        <div className="col-12 d-flex justify-content-end pr-0">
+          <div className="dropdown" style={{ width: '215px' }}>
+            <button className="btn btn-sm btn-outline-secondary dropdown-toggle pull-right" style={{ width: '215px' }} type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Order By: {isSortedByDate ? 'Due Date' : 'Date Created'}
+            </button>
+            <div className="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+              <a className="dropdown-item" onClick={this.sortByCreatedDate.bind(this)} href="#">Date Created</a>
+              <a className="dropdown-item" onClick={this.sortByDueDate.bind(this)} href="#">Due Date</a>
+            </div>
+          </div>
         </div>
-        <div className="row todo-list justify-content-center">
+
+        <div>
           <HashLoader
             className={override}
             sizeUnit={"px"}
@@ -61,27 +70,13 @@ class TodoList extends Component {
             color={'#123abc'}
             loading={isFetching}
           />
-          <ul className={`row col-10 rounded ${isFetching ? 'd-none' : ''}`}
-            style={{ backgroundColor: 'beige' }}
-          >
-            <div className="col-12 d-flex justify-content-end mt-2 pr-0">
-              <div className="dropdown" style={{ width: '215px' }}>
-                <button className="btn btn-sm btn-outline-secondary dropdown-toggle pull-right" style={{ width: '215px' }} type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Order By: {isSortedByDate ? 'Due Date' : 'Date Created'}
-                </button>
-                <div className="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                  <a className="dropdown-item" onClick={this.sortByCreatedDate.bind(this)} href="#">Date Created</a>
-                  <a className="dropdown-item" onClick={this.sortByDueDate.bind(this)} href="#">Due Date</a>
-                </div>
-              </div>
-            </div>
+          <ul className={`${isFetching ? 'd-none' : ''}`}>
             {todos.length ? todos.map((todo) => (
-              <TodoListItem
+              <TodoListItemContainer
                 key={todo.id}
                 todo={todo}
                 removeTodo={removeTodo}
                 toggleCompleteTodo={toggleCompleteTodo}
-                showTooltip={todos.length === 1}
               />
             )) : <TodoPlaceholder />}
               </ul>

@@ -1,13 +1,13 @@
 import { connect } from 'react-redux'
+import { updateTodo } from 'Actions/todo_actions'
 import TodoExpanded from './todo_expanded'
-import { fetchTodo } from 'Actions/todo_actions'
-
-const mapDispatchToProps = dispatch => ({
-  fetchTodo: id => dispatch(fetchTodo(id))
-})
 
 const mapStateToProps = state => ({
   todo: state.currentTodo
+})
+
+const mapDispatchToProps = dispatch => ({
+  updateTodo: todo => dispatch(updateTodo(todo))
 })
 
 export default connect(
