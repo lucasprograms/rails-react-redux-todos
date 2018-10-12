@@ -39,7 +39,7 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx', '*'],
     alias: {
-      Util: path.resolve(__dirname, 'util'),
+      Util: path.resolve(__dirname, 'frontend', 'util'),
       Actions: path.resolve(__dirname, 'frontend', 'actions'),
       Components: path.resolve(__dirname, 'frontend', 'components'),
       Reducers: path.resolve(__dirname, 'frontend', 'reducers'),

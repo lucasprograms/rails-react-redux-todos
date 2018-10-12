@@ -1,6 +1,6 @@
 import { RECEIVE_ERRORS, CLEAR_ERRORS } from 'Actions/error_actions'
 
-const initialState = { todos: [], steps: [], tags: [] }
+const initialState = { todos: [], todo: [], steps: [], tags: [] }
 const errorReducer = (state = initialState, action) => {
   switch (action.type) {
     case RECEIVE_ERRORS:

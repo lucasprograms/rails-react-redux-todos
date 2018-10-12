@@ -26,6 +26,8 @@
     "react-datetime": "^2.15.0",
     "react-dom": "^16.5.1",
     "react-redux": "^5.0.7",
+    "react-router": "^4.3.1",
+    "react-router-dom": "^4.3.1",
     "react-spinners": "^0.4.5",
     "redux": "^4.0.0"
   },
