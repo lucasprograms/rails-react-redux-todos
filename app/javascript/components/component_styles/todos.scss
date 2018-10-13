@@ -1,0 +1,46 @@
+$border: 1px solid gray;
+
+.todo-list-item {
+  padding: 1.5rem 0;
+  border-top: $border;
+  cursor: pointer;
+
+  &:first-child {
+    margin-top: .5rem;
+  }
+  
+  &:last-child {
+    border-bottom: $border;
+  }
+
+  &:active {
+    box-shadow: 0 0 3px black;
+  }
+
+  &.active {
+    background-color: rgb(233, 233, 233);
+  }
+
+  transition: all .3s ease-out;
+}
+
+.todo-expanded {
+  .todo-expanded__body {
+    border: none;
+    resize: none;
+    width: 100%;
+    height: 100%;
+    outline: none;
+  }
+
+  .todo-expanded__title {
+    width: 100%;
+    margin-top: .5rem;
+
+    input {
+      width: 100%;
+      border: none;
+      outline: none;
+    }
+  }
+}

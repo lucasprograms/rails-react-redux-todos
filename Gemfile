@@ -72,3 +72,5 @@ gem "jquery-rails", "~> 4.3"
 gem "foreman", "~> 0.64.0"
 
 gem "faker", "~> 1.9"
+
+gem 'webpacker', '~> 3.5'

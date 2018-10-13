@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css?family=Chakra+Petch|Monoton|Roboto+Mono');
+@import './todos';
+
+.todo-list {
+  .todo--incomplete {
+    .todo__complete-button:hover:after {
+      content: '\2713';
+    }
+  }
+
+  .todo--complete {
+    .todo__complete-button:after {
+      content: '\2713';
+    }
+  }
+
+  .step--incomplete {
+    .step__complete-button:hover:after {
+      content: '\2713';
+      position: absolute;
+      bottom: -4px;
+      right: 0px;
+    }
+  }
+
+  .step--complete {
+    .step__complete-button:after {
+      content: '\2713';
+      position: absolute;
+      bottom: -4px;
+      right: 0px;
+    }
+  }
+
+  .rotate-180 {
+    transform: rotate(180deg);
+  }
+
+  .toggle-detail-icon {
+    transition: transform .25s ease-in-out;
+  }
+
+  .todo-detail-view {
+    transition: max-height .25s ease-in-out;
+  }
+}
+
+header {
+  h1 {
+    font-family: 'Monoton', cursive;
+  }
+}
+
+body {
+  .expand-arrow-tip {
+    text-align: center;
+    top: -65px;
+    left: -45px;
+    width: 110px;
+    font-size: 14px;
+    font-family: Arial, Helvetica, sans-serif;
+    border: 3px solid #000;
+    border-radius: 4px;
+    padding: 5px 10px;
+    line-height: 16px;
+  }
+
+  .alert {
+    font-family: 'Chakra Petch', sans-serif;
+  }
+
+  form {
+    font-family: 'Chakra Petch', sans-serif;
+  
+    .create-todo-button {
+      background-color: #eee;
+    }
+  }
+
+  ul {
+    font-family: 'Roboto Mono', sans-serif;
+  }
+}

@@ -1,2 +1,3 @@
-web: npm start
-api: bundle exec rails s -p 1337
+web: bundle exec rails s
+# watcher: ./bin/webpack-watcher
+webpacker: ./bin/webpack-dev-server
