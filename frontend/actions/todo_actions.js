@@ -43,6 +43,7 @@ export const fetchTodos = () => (dispatch) => {
     todos => {
       dispatch(fetchingTodos(false))
       dispatch(receiveTodos(todos))
+      return todos
     },
     err => {
       dispatch(receiveErrors('todos', err.responseJSON))

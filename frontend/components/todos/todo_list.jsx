@@ -11,7 +11,14 @@ const override = css`
 
 class TodoList extends Component {
   componentDidMount () {
-    this.props.fetchTodos()
+    this.props.fetchTodos().then(
+      todos => {
+        const todoKeys = Object.keys(todos)
+        if (todoKeys.length) {
+          const todo = todos[todoKeys[0]]
+          return this.props.fetchTodo(todo.id)
+        }
+    })
   }
 
   sortByDueDate () {
@@ -24,6 +31,7 @@ class TodoList extends Component {
 
   render () {
     const {
+      activeTodoId,
       createTodo,
       errors,
       filteredByTag,
@@ -77,6 +85,7 @@ class TodoList extends Component {
                 todo={todo}
                 removeTodo={removeTodo}
                 toggleCompleteTodo={toggleCompleteTodo}
+                active={activeTodoId === todo.id}
               />
             )) : <TodoPlaceholder />}
               </ul>

@@ -19,10 +19,10 @@ class TodoListItem extends Component {
   }
 
   render () {
-    const { todo } = this.props
+    const { active, todo } = this.props
 
     return (
-      <div className={`col-12 todo-list-item clearfix ${todo.done ? 'todo--complete' : 'todo--incomplete'}`} onClick={this.props.fetchTodo}>
+      <div className={`col-12 todo-list-item clearfix ${todo.done ? 'todo--complete' : 'todo--incomplete'} ${active ? 'active' : ''}`} onClick={this.props.fetchTodo}>
         <div className="float-left">{todo.title}</div>
         <div className="float-right">{todo.due_date ? <DueDateBadge dueDate={todo.due_date} /> : '' }</div>
       </div>

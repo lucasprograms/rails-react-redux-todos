@@ -1,35 +1,39 @@
 import React, { Component } from 'react'
+import { debounce } from 'debounce'
 
 export default class TodoExpanded extends Component {
   constructor (props) {
     super(props)
 
     this.state = {
-      body: this.props.todo.body
+      todo: this.props.todo
     }
+
+    this.updateTodo = debounce(this.props.updateTodo, 2500)
   }
 
   componentDidUpdate (prevProps) {
     if (prevProps.todo.id !== this.props.todo.id) {
-      if (prevProps.todo.body !== this.state.body) {
-        this.props.updateTodo({ ...prevProps.todo, body: this.state.body })
+      if (prevProps.todo.body !== this.state.todo.body) {
+        this.props.updateTodo(this.state.todo)
       }
 
       this.setState({
-        body: this.props.todo.body
+        todo: this.props.todo
       })
-
     }
   }
  
   handleBodyChange (e) {
     this.setState({
-      body: e.target.value
+      todo: { ...this.state.todo, body: e.target.value }
     })
+
+    this.updateTodo({ ...this.props.todo, body: e.target.value })
   }
 
   render() {
-    const { body } = this.state
+    const { body } = this.state.todo
 
     return (
       <div className="col-8 todo-expanded">

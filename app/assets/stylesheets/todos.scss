@@ -12,6 +12,16 @@ $border: 1px solid gray;
   &:last-child {
     border-bottom: $border;
   }
+
+  &:active {
+    box-shadow: 0 0 3px black;
+  }
+
+  &.active {
+    background-color: rgb(233, 233, 233);
+  }
+
+  transition: all .3s ease-out;
 }
 
 .todo-expanded {
