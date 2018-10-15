@@ -33,6 +33,15 @@ $border: 1px solid gray;
     outline: none;
   }
 
+  &.todo--complete {
+    .todo-expanded__title {
+      input {
+        text-decoration: line-through;
+        color: #ccc;
+      }
+    }
+  }
+
   .todo-expanded__title {
     width: 100%;
     margin-top: .5rem;

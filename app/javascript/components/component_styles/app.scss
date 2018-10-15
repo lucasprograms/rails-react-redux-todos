@@ -1,18 +1,81 @@
 @import url('https://fonts.googleapis.com/css?family=Chakra+Petch|Monoton|Roboto+Mono');
 @import './todos';
+$border: 1px solid gray;
+
+html {
+  height: 100%;
+  body {
+    height: 100%;
+    li {
+      list-style: none;
+    }
+    #root {
+      height: 100%;
+
+      > .row {
+        height: 100%;
+      }
+    }
+  }
+}
+
+.todo-list-form {
+  form {
+    .todo-list-form__input-container {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: $border;
+      
+      input {
+        outline: none;
+        padding: .5rem 0;
+        width: 100%;
+        border: none;
+        display: flex;
+      }
+
+      button {
+        display: flex;
+        padding: .25rem;
+        border: none;
+        background-color: #FFF;
+        cursor: pointer;
+        outline: none;
+        font-size: 28px;
+        font-weight: bold;
+        transition: all .5s;
+
+        &:hover {
+          color: #4BB543;
+        }
+      }
+    }
+  }
+}
+
+.todo--incomplete {
+  .todo__complete-button {
+    color: #ddd;
+
+    &:after {
+      content: '\2713';
+    }
+
+    .todo__complete-button:hover {
+      color: #17a2b8 !important;
+    }
+  }
+}
+
+.todo--complete {
+  .todo__complete-button:after {
+    content: '\2713';
+    color: #17a2b8;
+  }
+}
 
 .todo-list {
-  .todo--incomplete {
-    .todo__complete-button:hover:after {
-      content: '\2713';
-    }
-  }
 
-  .todo--complete {
-    .todo__complete-button:after {
-      content: '\2713';
-    }
-  }
 
   .step--incomplete {
     .step__complete-button:hover:after {

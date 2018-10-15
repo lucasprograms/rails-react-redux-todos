@@ -17,7 +17,6 @@ export default class TodoListForm extends Component {
       title: '',
       body: '',
       due_date: null,
-      button: 'new'
     }
   }
 
@@ -27,37 +26,13 @@ export default class TodoListForm extends Component {
     })
   }
 
-  updateBody (e) {
-    this.setState({
-      body: e.target.value
-    })
-  }
-
-  updateDueDate (date) {
-    if (!date.toDate) {
-      return
-    }
-    this.setState({
-      due_date: date.toDate()
-    })
-  }
-
-  toggleButtonName () {
-    this.setState({
-      button: this.state.button === 'new' ? 'create' : 'new'
-    })
-  }
-
-  handleSubmit (createTodo) {
-    createTodo(this.state).then(() => {
+  handleSubmit () {
+    this.props.createTodo(this.state).then((todo) => {
       this.setState({
         title: '',
         body: '',
         due_date: null
       })
-    }).then(() => {
-      this.toggleButtonName()
-      document.getElementById('create-todo-form').classList.remove('show')
     })
   }
 
@@ -73,59 +48,24 @@ export default class TodoListForm extends Component {
   }
 
   render() {
-    const { createTodo, errors, isCreating } = this.props
-
-    const CreateTodoButton = () => (
-      <button
-        className="btn btn-outline-primary create-todo-button"
-        style={{ minWidth: '113px' }}
-        disabled={isCreating}
-        onClick={(e) => { e.preventDefault(); this.handleSubmit(createTodo) }}
-      >
-        <HashLoader
-          className={override}
-          sizeUnit={"px"}
-          size={25}
-          color={'#123abc'}
-          loading={isCreating}
-        />
-        { isCreating ? '' : 'Create Todo'}
-      </button>
-    )
-
-    const NewTodoButton = () => (
-      <button onClick={this.toggleButtonName.bind(this)} className="btn btn-outline-dark" data-toggle="collapse" href="#create-todo-form" role="button" aria-expanded="false" aria-controls="create-todo-form">
-        New Todo
-      </button>
-    )
+    const { errors } = this.props
 
     return (
-      <div className="col-12">
+      <div className="todo-list-form">
         <ul className={`alert alert-danger ${errors.todos && errors.todos.length ? '' : 'd-none'}`}>
           <li className="font-weight-bold">We encountered {this.getErrorTitle(errors.todos)}:</li>
           {errors.todos && errors.todos.map((error, index) => (
             <li key={index}>{error}</li>
           ))}
         </ul>
-        <form>
-          { this.state.button === 'new' ? <NewTodoButton /> : <CreateTodoButton />}
-          <div className="collapse mt-2" id="create-todo-form">
-          <div className="form-group">
-            <label htmlFor="todo-title-input">Title:</label>
-            <input id="todo-title-input" className="form-control" onChange={(e) => { this.updateTitle(e) }} value={this.state.title} />
-          </div>
-          <div className="form-group">
-            <label htmlFor="todo-title-input">Body:</label>
-            <input id="todo-body-input" className="form-control" onChange={(e) => { this.updateBody(e) }} value={this.state.body} />
-          </div>
-          <div className="form-group">
-            <label>Due Date:</label>
-            <DateTime
-              onChange={(date) => { this.updateDueDate(date) }}
-              timeConstraints={{minutes: { step: 15 }}}
-              value={this.state.due_date}
+        <form onSubmit={this.handleSubmit.bind(this)}>
+          <div className="todo-list-form__input-container">
+            <input
+              placeholder="new todo..."
+              id="todo-title-input"
+              onChange={(e) => { this.updateTitle(e) }} value={this.state.title}
             />
-          </div>
+            <button>{'\uff0b'}</button>
           </div>
         </form>
       </div>

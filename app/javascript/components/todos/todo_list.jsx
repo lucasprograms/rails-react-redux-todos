@@ -78,23 +78,25 @@ class TodoList extends Component {
             color={'#123abc'}
             loading={isFetching}
           />
-          <ul className={`${isFetching ? 'd-none' : ''}`}>
-            {todos.length ? todos.map((todo) => (
-              <TodoListItemContainer
-                key={todo.id}
-                todo={todo}
-                removeTodo={removeTodo}
-                toggleCompleteTodo={toggleCompleteTodo}
-                active={activeTodoId === todo.id}
+          <div className={`${isFetching ? 'd-none' : ''}`}>
+            {
+              todos.map((todo) => (
+                <TodoListItemContainer
+                  key={todo.id}
+                  todo={todo}
+                  removeTodo={removeTodo}
+                  toggleCompleteTodo={toggleCompleteTodo}
+                  active={activeTodoId === todo.id}
+                />
+              ))
+            }
+            <div className="col-12 todo-list-item">
+              <TodoListForm
+                createTodo={createTodo}
+                errors={errors}
+                isCreating={isCreating}
               />
-            )) : <TodoPlaceholder />}
-              </ul>
-          <div className="row justify-content-center col-10">
-            <TodoListForm
-              createTodo={createTodo}
-              errors={errors}
-              isCreating={isCreating}
-            />
+            </div>
           </div>
         </div>
       </div>

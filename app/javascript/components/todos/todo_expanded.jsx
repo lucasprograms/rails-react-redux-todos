@@ -13,7 +13,8 @@ export default class TodoExpanded extends Component {
       todo: {
         title: '',
         body: '',
-        due_date: null
+        due_date: null,
+        done: false
       }
     }
 
@@ -36,12 +37,17 @@ export default class TodoExpanded extends Component {
     this.setState({ todo })
     this.debouncedUpdateTodo(todo)
   }
- 
+  
   handleBodyChange (e) {
     const todo = { ...this.state.todo, body: e.target.value }
     
     this.updateTodo(todo)
     this.debouncedUpdateTodo(todo)
+  }
+
+  handleCompletedStatusChange () {
+    const todo = { ...this.state.todo, done: !this.state.todo.done }
+    this.updateTodo(todo)
   }
 
   handleTitleChange (e) {
@@ -60,20 +66,34 @@ export default class TodoExpanded extends Component {
     this.updateTodo(todo)
   }
 
-  triggerCalendar (e) {
-    this.setState({ ...this.state.todo, due_date: new Date()})
-    debugger
-    $('.todo-expanded__title .rdt').trigger('click')
+  handleDeleteButtonClick () {
+    this.props.destroyTodo(this.state.todo).then(() => {
+      this.props.nextTodo ? this.props.receiveCurrentTodo(this.props.nextTodo) : ''
+    })
   }
 
   render() {
     const { body, due_date, title } = this.state.todo
 
-    return (
-      <div className="col-8 todo-expanded">
+    if (Object.keys(this.props.todo).length) {
+      return (
+        <div className={`col-8 todo-expanded ${this.state.todo.done ? 'todo--complete' : 'todo--incomplete'}`}>
         <div className="d-flex justify-content-between">
           <div className="d-flex todo-expanded__title">
-            <h2><input value={title} onChange={(e) => { this.handleTitleChange(e) }} /></h2>
+            <h2>
+              <input value={title} onChange={(e) => { this.handleTitleChange(e) }} />
+              <button
+                className="btn btn-sm btn-outline-info mr-1 todo__complete-button"
+                onClick={this.handleCompletedStatusChange.bind(this)}
+              >
+              </button>
+              <button
+                className="btn btn-sm btn-outline-danger"
+                onClick={this.handleDeleteButtonClick.bind(this)}
+              >
+                {'\u2715'}
+              </button>
+            </h2>
             <div className="todo-expanded__datetime-container">
             <DateTime
               inputProps={{ placeholder: 'Due Date' }}
@@ -84,8 +104,12 @@ export default class TodoExpanded extends Component {
             </div>
           </div>
         </div>
-        <textarea className="todo-expanded__body" value={body} onChange={(e) => { this.handleBodyChange(e) }}/>
+        <textarea className="todo-expanded__body" placeholder={'buy apples...'} value={body} onChange={(e) => { this.handleBodyChange(e) }}/>
       </div>
-    )
+      )
+    } else {
+      return <div className="col-8" style={{ height: '100%' }}></div>
+    }
+
   }
 }
