@@ -12,5 +12,5 @@ const getDueDateBadgeColor = (date) => {
 }
 
 export default ({ dueDate }) =>
-  dueDate ? <p className={`badge badge-${getDueDateBadgeColor(dueDate)}`}>Due {moment(dueDate).calendar()}</p> : null
+  dueDate ? <small className="text-secondary">{moment(dueDate).calendar()}</small> : null
 

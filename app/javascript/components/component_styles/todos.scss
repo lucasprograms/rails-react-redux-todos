@@ -37,10 +37,28 @@ $border: 1px solid gray;
     width: 100%;
     margin-top: .5rem;
 
-    input {
-      width: 100%;
-      border: none;
-      outline: none;
+    h2 {
+      width: 70%;
+
+      input {
+        width: 100%;
+        border: none;
+        outline: none;
+      }
+    }
+
+    .todo-expanded__datetime-container {
+      width: 30%;
+      position: relative;
+
+      .rdt { // react-datetime
+        border-bottom: $border;
+  
+        input {
+          border: none;
+          width: 100%;
+        }
+      }
     }
   }
 }

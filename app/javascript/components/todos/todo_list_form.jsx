@@ -62,6 +62,9 @@ export default class TodoListForm extends Component {
   }
 
   getErrorTitle (errors) {
+    if (!errors) {
+      return
+    }
     if (errors.length === 1) {
       return 'an error'
     } else {
@@ -98,9 +101,9 @@ export default class TodoListForm extends Component {
 
     return (
       <div className="col-12">
-        <ul className={`alert alert-danger ${errors.todos[0] ? '' : 'd-none'}`}>
+        <ul className={`alert alert-danger ${errors.todos && errors.todos.length ? '' : 'd-none'}`}>
           <li className="font-weight-bold">We encountered {this.getErrorTitle(errors.todos)}:</li>
-          {errors.todos.map((error, index) => (
+          {errors.todos && errors.todos.map((error, index) => (
             <li key={index}>{error}</li>
           ))}
         </ul>

@@ -13,6 +13,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@material-ui/core": "^3.2.1",
     "@rails/webpacker": "3.5",
     "babel-preset-react": "^6.24.1",
     "bootstrap": "^4.1.3",

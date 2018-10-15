@@ -23,8 +23,8 @@ class TodoListItem extends Component {
 
     return (
       <div className={`col-12 todo-list-item clearfix ${todo.done ? 'todo--complete' : 'todo--incomplete'} ${active ? 'active' : ''}`} onClick={this.props.fetchTodo}>
-        <div className="float-left">{todo.title}</div>
-        <div className="float-right">{todo.due_date ? <DueDateBadge dueDate={todo.due_date} /> : '' }</div>
+        <div className="float-left col-12 pl-0">{todo.title}</div>
+        <div className="float-left">{todo.due_date ? <DueDateBadge dueDate={todo.due_date} /> : '' }</div>
       </div>
     )
   }
