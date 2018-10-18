@@ -68,7 +68,7 @@ export default class TodoExpanded extends Component {
 
   handleDeleteButtonClick () {
     this.props.destroyTodo(this.state.todo).then(() => {
-      this.props.nextTodo ? this.props.receiveCurrentTodo(this.props.nextTodo) : ''
+      this.props.nextTodo ? this.props.receiveCurrentTodo(this.props.nextTodo) : this.props.receiveCurrentTodo({})
     })
   }
 
