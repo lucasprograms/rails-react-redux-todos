@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import DateTime from 'react-datetime'
 import 'react-datetime/css/react-datetime.css'
 import { css } from 'react-emotion';
-import { HashLoader } from 'react-spinners'
+import { ClipLoader } from 'react-spinners'
 
 const override = css`
     display: block;
@@ -48,7 +48,7 @@ export default class TodoListForm extends Component {
   }
 
   render() {
-    const { errors } = this.props
+    const { errors, isCreating } = this.props
 
     return (
       <div className="todo-list-form">
@@ -65,7 +65,7 @@ export default class TodoListForm extends Component {
               id="todo-title-input"
               onChange={(e) => { this.updateTitle(e) }} value={this.state.title}
             />
-            <button>{'\uff0b'}</button>
+            <button> { isCreating ? <ClipLoader size={25} /> : '\uff0b'}</button>
           </div>
         </form>
       </div>
