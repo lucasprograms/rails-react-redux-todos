@@ -34,8 +34,6 @@ export const receiveCurrentTodo = (todo) => ({
   todo
 })
 
-
-
 export const fetchTodos = () => (dispatch) => {
   dispatch(fetchingTodos(true))
   
